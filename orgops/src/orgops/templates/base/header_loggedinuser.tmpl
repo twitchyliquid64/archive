@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="shortcut icon" href="/img/favicon.png" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		
+
+		 
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/css/todc-bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/css/markdown.css">
+		<link rel="stylesheet" href="/css/gogs.css">
+
+		<title>User Settings - Setup 2 factor authentication</title>
+	</head>
+	<body>
+		<div id="wrapper">
+		<noscript>Please enable JavaScript in your browser!</noscript>
+<div class="masthead navbar" id="masthead">
+    <div class="container">
+        <nav class="nav">
+            <a id="nav-logo" class="nav-item pull-left" href="/"><img src="/img/favicon.png" alt="Gogs Logo" id="logo"></a>
+            <a class="nav-item pull-left {{if .IsDashPage}}active{{end}}" href="/">Dashboard</a>
+            <a class="nav-item pull-left {{if .IsFilePage}}active{{end}}" href="/user/files/">Files</a>
+            <a class="nav-item pull-left {{if .IsHelpPage}}active{{end}}" href="https://google.com/">Help</a>
+            
+            <a id="nav-out" class="nav-item navbar-right navbar-btn btn btn-danger" href="/user/logout/"><i class="fa fa-power-off fa-lg"></i></a>
+            <a class="navbar-right nav-item {{if .IsSettingPage}}active{{end}}" href="/user/setting"  data-toggle="tooltip" data-placement="bottom" title="Setting"><i class="fa fa-cogs fa-lg"></i></a>
+            {{if .UserIsAdmin}}<a class="navbar-right nav-item {{if .IsAdminPage}}active{{end}}" href="/admin"  data-toggle="tooltip" data-placement="bottom" title="Admin"><i class="fa fa-gear fa-lg"></i></a>{{end}}
+            
+        </nav>
+    </div>
+</div>

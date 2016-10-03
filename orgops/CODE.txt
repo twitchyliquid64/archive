@@ -1,0 +1,22 @@
+The best way to think of the code structure is in terms of layered and unlayered elements.
+Imagine the web request comes in a layer one. Control flow is passed up the stack of layers
+to add value to the response, and then the request is fulfilled.
+
+
+
+			Logic package				<--- File package - exposes access to each users files.
+		Handles the actual				<--- Data package - exposes access to the database
+		business logic related			<--- Session package - stores and tracks sessions
+		to the request.							|
+				^								|
+				|								|
+			Router package						|
+		Correct Router function					|
+		Handles the request,			<-------- 
+		assembling the response.
+				^
+				|
+	Request comes in from web.go
+
+The session and data packages are not tied to any layer and can be called for information
+from anywhere that needs it.

@@ -1,0 +1,12 @@
+local pim = peripheral.wrap("front")
+ 
+local count = pim.getSizeInventory()-1
+ 
+for i=1, count do
+ local tab = pim.getStackInSlot(i)
+ if tab then
+   for key, value in pairs(tab) do
+     print(key .. " = " .. tostring(value))
+   end
+ end
+end

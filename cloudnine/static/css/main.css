@@ -1,0 +1,141 @@
+#searchbox {
+    margin-top: 30px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+#searchbox input {
+    outline: none;
+}
+
+#instafeed img {
+  width: 120px;
+  height: 120px;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+input:focus:-moz-placeholder {
+    color: transparent;
+}
+input:focus::-moz-placeholder {
+    color: transparent;
+}
+#searchbox input[type="text"] {
+    background: url(http://2.bp.blogspot.com/-xpzxYc77ack/VDpdOE5tzMI/AAAAAAAAAeQ/TyXhIfEIUy4/s1600/search-dark.png) no-repeat 10px 13px #f2f2f2;
+    border: 2px solid #f2f2f2;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: #6A6F75;
+    width: 70%;
+    padding: 14px 17px 12px 30px;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+    text-shadow: 0 2px 3px #fff;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+}
+
+#searchbox input[type="text"]:focus {
+    background: #f7f7f7;
+    border: 2px solid #f7f7f7;
+    width: 85%;
+    padding-left: 10px;
+}
+
+#button-submit, #button-compare{
+/*background: url(http://4.bp.blogspot.com/-slkXXLUcxqg/VEQI-sJKfZI/AAAAAAAAAlA/9UtEyStfDHw/s1600/slider-arrow-right.png) no-repeat;*/
+background: url('/static/img/slider-arrow-right-2.png?2') no-repeat;
+margin-left: -40px;
+border-width: 0px;
+width: 45px;
+height: 47px;
+}
+
+.input-description {
+    font: bold 18px Arial,Helvetica,Sans-serif;
+}
+
+td {
+  vertical-align: middle;
+}
+
+td:nth-child(2) {
+  align: left;
+  vertical-align: middle;
+  min-width: 70px;
+  /*margin-left: 10px;*/
+}
+
+td:nth-child(3) {
+  border-spacing: 10px;
+  /*margin-left: 10px;*/
+}
+
+/* Icons Start */
+/*Computer 992, 264
+Wallet 800, 400
+Calendar 520, 260
+Movie 292, 310
+Smiley 145, 543
+Paintbrush 992, 683
+Money bag 760, 640*/
+    
+.icons {
+  background-image: url('/static/img/iconset-white.png');
+  display: inline-block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  height: 44px;
+  width: 44px;
+}
+
+.icons-computer {
+  background-position: -992px -265px;
+}
+
+.icons-wallet {
+  background-position: -808px -400px;
+}
+
+.icons-calendar {
+  background-position: -520px -260px;
+  height: 35px;
+  width: 35px;
+}
+
+.icons-movie {
+  background-position: -292px -310px;
+}
+
+.icons-smiley {
+  background-position: -145px -543px;
+}
+
+.icons-brush {
+  background-position: -992px -683px;
+}
+
+.icons-moneybag {
+  background-position: -760px -640px;
+  height: 34px;
+  width: 34px;
+}
+
+.icons-explore {
+  background-position: -848px -545px;
+}
+
+.icons-compare {
+  background-position: -476px -450px;
+}
+
+.icons-ranked {
+  background-position: -992px -730px;
+}
+
+/* Icons End */

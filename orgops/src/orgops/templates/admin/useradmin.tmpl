@@ -1,0 +1,48 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+<div id="body" class="container" data-page="admin">
+    <div id="user-setting-nav" class="col-md-2 admin-nav">
+    <ul class="list-group">
+        <li class="list-group-item"><a href="/admin"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+        <li class="list-group-item active"><a href="/admin/users"><i class="fa fa-users fa-lg"></i> Users</a></li>
+        <li class="list-group-item"><a href="/admin/repos"><i class="fa fa-book fa-lg"></i> Data Storage</a></li>
+        <li class="list-group-item"><a href="/admin/config"><i class="fa fa-cogs fa-lg"></i> Configuration</a></li>
+    </ul>
+</div>
+     <div id="admin-container" class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                User Management
+            </div>
+
+            <div class="panel-body">
+                <a href="/admin/users/createnewuser" class="btn btn-primary">New Account</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+							<th>uid</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {{range .PageSpecificData}}
+                        <tr>
+							<td>{{.UID}}</td>
+                            <td><a href="/user/{{.Username}}">{{.Username}}</a></td>
+                            <td><a href="/admin/users/{{.Username}}"><i class="fa fa-pencil-square-o"></i></a></td>
+                        </tr>
+                        {{end}}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+-- Master Server, written by NitrogenFingers --
+
+routers = {}
+servers = {}
+
+-- Helper Methods --
+
+function split(str, pat)
+  local t = { }
+  local fpat = "(.-)"..pat
+  local last_end = 1
+  local s, e, cap = str:find(fpat, 1)
+  while s do
+    if s ~= 1 or cap ~= "" then
+      table.insert(t,cap)
+    end
+    last_end = e+1
+    s, e, cap = str:find(fpat, last_end)
+  end
+  if last_end <= #str then
+    cap = str:sub(last_end)
+    table.insert(t, cap)
+  end
+  return t
+end
+
+--[[ Some simple recursive methods that iterate through all lists and
+add or remove them as necessary ]]--
+
+--[[ The add connector will actually check EVERY connection, and delete repeats
+this way computers can reconnect to a network from a different router, without
+trouble.]]--
+function addConnector(newid, parentid, connections)
+  if #connections==0 then return false end
+  for i=1,#connections do
+    local child = connections[i]
+    
+    --We remove extras here--
+    for j=1,#child.children do
+      if child.children[j].id == newid then
+        table.remove(child.children, j)
+		print(" removed.")
+      end
+    end
+    
+    if child.id == parentid then
+      table.insert(child.children, {
+        id = newid,
+        children = {}
+      })
+	  
+      return true
+    end
+    
+    addConnector(newid, parentid, child.children)
+  end
+  return false
+end
+
+function removeConnector(oldid, connections)
+  if #connections==0 then return false end
+  for i=1,#connections do
+    local child = connections[i]
+    if child.id == oldid then
+      table.remove(connections, i)
+      return true
+    end
+    if removeConnector(oldid, child.children) then return true end
+  end
+  return false
+end
+
+function findConnector(existingid, connections)
+  if #connections==0 then return "" end
+  for i=1,#connections do
+    local child = connections[i]
+	if child.id == existingid then return child.id end
+	local path = findConnector(existingid, child.children)
+	if path ~= "" then return child.id.."-"..path end
+  end
+  return "";
+end
+
+function findTopConnector(existingid)
+  print("Finding top connector, out of "..#routers.." routers")
+  print("Checking for :"..existingid)
+  for i=1,#routers do
+    local route = routers[i]
+	print("At router "..i..": ID = "..route.id)
+	if route.id == existingid then 
+	  return route.id, "" 
+	end
+    local path = findConnector(existingid, route.children) 
+	if path ~= "" then return route.id, path end
+  end
+  --This should never happen--
+  print("A network error has occurred.")
+  return -1, ""
+end
+
+function printNetworkTree(connections, index)
+  if #connections==0 then return end
+  for i=1,#connections do
+    local child = connections[i]
+    print(string.rep(" ", index)..child.id)
+    printNetworkTree(child.children, index+1)
+  end
+end
+
+
+--[[ This handles all requests that pass through the Master Server. ALL messages
+find their way through this server. ]]--
+
+function processRequest(senderid, request)
+--Identical to the procedures found in routers
+  if request == "$HELLO" then
+	--print("Responding to network discovery")
+    rednet.send(senderid, "$HELLO")
+    return
+  elseif request == "$ADDME" then
+    print("Added new leaf node")
+	table.insert(routers, {
+	  id = senderid,
+	  children = {}
+	})
+	rednet.send(senderid, "$ACK")
+	--print("Printing tree")
+	printNetworkTree(routers, 0)
+    return
+  end
+
+--If it's a client request, we funnel it down to the nearest router
+  if string.find(request, "$CLIENT") then
+    --print("Processing client request...")
+    request = string.gsub(request, "$CLIENT", "")
+	local values = split(request, "-")
+	local routeid, dest = findTopConnector(tonumber(values[1]))
+	if dest~="" then 
+	  request = dest.."-"..values[2]
+	else request = values[2] end
+	rednet.send(routeid, request)
+	--print("Sending message to "..routeid..": "..request)
+
+--If it's a server request, we forward it to the right server
+  elseif string.find(request, "$SERVER") then
+    local sent = false
+    request = string.gsub(request, "$SERVER", "")
+	for i=1,#servers do
+	  local f, l = string.find(request, servers[i].name)
+	  if f==1 then
+	    request = string.sub(request, l+1)
+		rednet.send(servers[i].id, request)
+		
+		--print("Sending request to "..servers[i].name.. ": "..request)
+		sent = true
+		break;
+	  end
+	end
+    if not sent then print("No server by the requested name is registered on the server.") end
+--If it's for the master server we process it ourselves
+  elseif string.find(request, "$MASTER") then
+    request = string.gsub(request, "$MASTER", "")
+	
+	if string.find(request, "$ADDROUTER")==1 then
+	  request = string.gsub(request, "$ADDROUTER", "")
+	  local values = split(request, "-")
+	  addConnector(tonumber(values[1]), tonumber(values[2]), routers)
+	  print("Added new router")
+	  printNetworkTree(routers, 0)
+	  local routeid, dest = findTopConnector(tonumber(values[1]))
+	  rednet.send(routeid, dest.."-".."$ACK")
+	  --print("Response sent")
+	elseif string.find(request, "$ADDSERVER")==1 then
+	  request = string.gsub(request, "$ADDSERVER", "")
+	  --print("Request:"..request)
+	  local values = split(request, "-")
+	  --for i=1,#values do print("Value of "..i..": "..values[i]) end
+	  table.insert(servers, {
+	    id = tonumber(values[1]),
+		name = values[2]
+	  })
+	  print("Added new server: "..values[2])
+	  rednet.send(senderid, "$ACK")
+	end
+--And, if it's adressed at no one we ignore it out of hand.
+  else
+    print("Unrecognizable message recieved. DISCARDED.")
+  end
+end
+
+function printHeader()
+  term.setCursorPos(1,1)
+  print("-----------------------------------------------")
+  print("               MASTER SERVER                   ")
+  print("-----------------------------------------------")
+  print("Open on "..os.getComputerID())
+  print("")
+end
+
+--[[ This runs the main logic ]]--
+
+term.clear()
+rednet.open("top")
+-- First time just sets the cursor position to below the header
+printHeader()
+  -- It will listen forever for requests, and respond when received
+while true do
+  local ox,oy = term.getCursorPos()
+  printHeader()
+  term.setCursorPos(ox,oy)
+  print("\nListening for requests...")
+  local requestid, request = rednet.receive()
+  processRequest(requestid, request)
+end

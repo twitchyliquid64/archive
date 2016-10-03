@@ -1,0 +1,58 @@
+local display = peripheral.wrap("top")
+
+
+local controls = {
+	{"GENS  ", "front"},
+	{"SOLARS", "left"}
+}
+
+
+display.setTextColor(colors.white)
+display.setBackgroundColor(colors.black)
+display.clear()
+x, y = display.getSize()
+
+display.setTextColor(colors.black)
+display.setBackgroundColor(colors.orange)
+display.setCursorPos(1, 1)
+for i=1,x do
+   display.write( " " )
+end
+display.setCursorPos(x/2 - 6, 1)
+display.write("Control Panel")
+
+number_cols = (x-2) / 7
+number_rows = (y-2) / 2
+col_offset  = ((x-2) % 7) / 2
+
+local count = 0
+for z=1,number_rows do
+	for i=1,number_cols do
+	   display.setCursorPos((i * 7) - 6 + col_offset, 1 + (z*2))
+	   if count < #controls then
+	       display.setBackgroundColor(colors.yellow)
+	       display.write( controls[count+1][1] )
+	       controls[count+1][3] = math.floor((i * 7) - 6 + col_offset)
+	       controls[count+1][4] = math.floor(1 + (z*2))
+	       controls[count+1][5] = false
+	       count = count + 1
+	   else
+	       display.setBackgroundColor(colors.gray)
+	       display.write( "      " )
+	   end
+	end
+end
+
+
+while true do
+    event, side, xPos, yPos = os.pullEvent("monitor_touch")
+    for subscript, obj in pairs(controls) do
+     if (xPos > obj[3]) and (xPos < (obj[3]+7)) then
+		if yPos == obj[4] then
+		  term.write(obj[2])
+		  redstone.setOutput(obj[2], not obj[5])
+		  controls[subscript][5] = not obj[5]
+		end
+     end
+    end
+end

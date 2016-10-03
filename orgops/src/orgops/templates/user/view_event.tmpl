@@ -1,0 +1,59 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+
+<div id="body" class="container" data-page="user">
+    <div id="user-setting-container" class="col-md-9">
+        <div id="setting-pwd">
+            <h4>Event Details</h4>
+            {{with .PageSpecificData}}
+            <form class="form-horizontal" id="password-form" method="post" action="/user/events/delete/{{.UID}}">
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Title</label>
+                    <div class="col-md-7">
+                        <p>{{.Title}}</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-7">
+                         <p>{{.Description}}</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Date</label>
+                    <div class="col-md-7">
+                         <p>{{.Time}}</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">List</label>
+                    <div class="col-md-7">
+                         <p>{{.List}}</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Created on</label>
+                    <div class="col-md-7">
+                         <p>{{.Created}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-7">
+                        <button type="submit" class="btn btn-danger">Delete</button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+            {{end}}
+        </div>
+    </div>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

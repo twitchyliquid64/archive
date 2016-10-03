@@ -1,0 +1,50 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+
+<div id="body" class="container" data-page="user">
+    <div id="user-setting-nav" class="col-md-3">
+    <h4>Account Settings</h4>
+    <ul class="list-group">
+		<li class="list-group-item list-group-item-success"><a href="/user/setting/account">Account</a></li>
+        <li class="list-group-item"><a href="/user/setting">Account Password</a></li>
+        <li class="list-group-item"><a href="/user/setting/2factor">Two-factor Authentication</a></li>        
+        <li class="list-group-item"><a href="/user/delete">Delete Account</a></li>
+    </ul>
+
+</div>
+    <div id="user-setting-container" class="col-md-9">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                Account Information
+            </div>
+            
+            {{if .Error}}
+            <p class="alert alert-danger">{{.Error}}</p>
+            {{end}}
+
+            <div class="panel-body">
+                <dl class="dl-horizontal admin-dl-horizontal">
+                    <dt>Username</dt>
+                    <dd>{{.Username}}</dd>
+                    
+                    <dt>Groups</dt>
+                    {{if .Groups}}
+						{{range .Groups}}
+						<dd>{{.}}</dd>
+						{{end}}
+					{{else}}
+					<dd>Not a member of any groups.</dd>
+                    {{end}}
+                    
+                    <dt>API Key</dt>
+                    <dd>{{.PageSpecificData}}</dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

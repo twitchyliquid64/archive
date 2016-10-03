@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Exercise7</string>
+
+    <string name="titleText">Exercise 7</string>
+    <string name="action_settings">Settings</string>
+    <string name="startButtonText">Start</string>
+    <string name="serviceStopMsg">Service has been destroyed!</string>
+    <string name="combinationCountStr"> out of </string>
+    <string name="taskCompleted">Task Completed!</string>
+</resources>

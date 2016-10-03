@@ -1,0 +1,146 @@
+w,h = term.getSize()
+
+--States: PASSWORD, ACCESS, MENU
+state = "PASSWORD"
+selecta = 1
+selectb = 1
+
+side = "top"
+selside = 1
+serverid = -1
+password = -1
+doors = {}
+guns = {}
+mcount = 0
+accepted = false
+
+function split(str, pat)
+  local t = { }
+  local fpat = "(.-)"..pat
+  local last_end = 1
+  local s, e, cap = str:find(fpat, 1)
+  while s do
+    if s ~= 1 or cap ~= "" then
+      table.insert(t,cap)
+    end
+    last_end = e+1
+    s, e, cap = str:find(fpat, last_end)
+  end
+  if last_end <= #str then
+    cap = str:sub(last_end)
+    table.insert(t, cap)
+  end
+  return t
+end
+
+
+function getSystems()
+  rednet.open(side)
+  rednet.send("$SERVERMAGIC$REQUEST:"..os.getComputerID()..":"..password)
+  local id,msg = rednet.receive(5)
+  if not msg or not string.find(msg, "$RESPONSE") then
+    accepted = false
+  else
+    accepted = true
+	fulllist = split(msg, ":")
+	mcount = #fulllist
+	if #fulllist == 1 then
+	  accepted = false
+	  return
+	end
+	
+	for i=2,#fulllist do
+	  --At a later stage these'll need to be replaecd with real names
+	  if fulllist[i] == "$DOOR" then table.insert(doors, "Door")
+	  elseif fulllist[i] == "$GUN" then table.insert(guns, "Gunnery")
+	end
+  end
+end
+
+function printHeader()
+  printCentered("DEFENSE CLIENT", 1)
+  printCentered("\"To test a man's character, give him power\"", 2)
+  printCentered(string.rep("-", w))
+end
+
+function printPassword()
+  printCentered("Enter passcode: ", 5)
+end
+
+function printAccepted()
+  if not accepted then printCentered("Authentification unsuccessful", 6)
+  else printCentered("Authentification successful", 6)
+end
+
+function printMenu()
+  for 
+end
+
+function
+
+function printRight(height, value)
+  local xpos = w - string.len(value)
+  term.setCursorPos(xpos, height)
+  term.write(value)
+end
+
+function printCentered(height, value)
+  local xpos = w/2 - string.len(value)/2
+  term.setCursorPos(xpos, height)  
+  term.write(value)
+end
+
+function runInterface()
+  while true do
+    term.clear()
+	printHeader()
+	if state=="PASSWORD" then
+	  printPassword()
+	  password = io.read()
+	  getSystems()
+	  state = "ACCESS"
+	elseif state=="ACCESS" then
+	  printAccepted()
+	  os.pullEvent("key")
+	  if not accepted then break
+	  else state=="MENU" end
+	elseif state=="MENU" then
+	  printMenu()
+	  local id,key = os.pullEvent("key")
+	  if selside == 1 then
+	    if key==208 and selecta<mcount then selecta=selecta+1
+		elseif key==200 and selecta>0 then selecta=selecta-1
+		elseif key==205 then selside = 2
+		elseif key==28 and selecta=0 then break
+	  else
+	    if key==208 and 
+	  end
+	end
+  end
+end
+
+-- On Startup --
+
+function getPrefs()
+  local file = io.open("/pref")
+  if not file then
+    print("pref file not found! Make sure you have run the register program.")
+    return false
+  end
+  local sidl = file:read()
+  sidl = string.gsub(sidl, "routerid=", "")
+  print(sidl)
+  sidl = tonumber(sidl)
+  if sidl==0 then
+    print("Client prefs not initialized- check readme for detals.")
+    return false
+  end
+  serverid = sidl
+  sidl = file:read()
+  sidl = string.gsub(sidl, "side=", "")
+  side = sidl
+  return true
+end
+
+if not getPrefs() then return end
+runInterface()

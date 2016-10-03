@@ -1,0 +1,129 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+<div id="body" class="container" data-page="admin">
+    <div id="user-setting-nav" class="col-md-2 admin-nav">
+    <ul class="list-group">
+        <li class="list-group-item active"><a href="/admin"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+        <li class="list-group-item"><a href="/admin/users"><i class="fa fa-users fa-lg"></i> Users</a></li>
+        <li class="list-group-item"><a href="/admin/repos"><i class="fa fa-book fa-lg"></i> Data Storage</a></li>
+        <li class="list-group-item"><a href="/admin/config"><i class="fa fa-cogs fa-lg"></i> Configuration</a></li>
+    </ul>
+</div>
+    <div id="admin-container" class="col-md-10">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                System Monitor
+            </div>
+
+            <div class="panel-body">
+                <dl class="dl-horizontal admin-dl-horizontal">
+					
+					{{with .PageSpecificData}}
+                    <dt>Server Started</dt>
+                    <dd>{{.Uptime}}</dd>
+
+                    <dt>Current Goroutines</dt>
+                    <dd>{{.NumGoroutine}}</dd>
+                    <hr/>
+                    
+                    <dt>Sessions Stored</dt>
+                    <dd>{{.SessionsStored}}</dd>
+
+                    <dt>Session slots</dt>
+                    <dd>{{.SessionSlots}}</dd>
+                    
+                    <hr/>
+                    <dt>Current Memory Usage</dt>
+                    <dd>{{.MemAllocated}}K</dd>
+
+                    <dt>Total Memory Allocated</dt>
+                    <dd>{{.MemTotal}}K</dd>
+
+                    <dt>Memory Obtained</dt>
+                    <dd>{{.MemSys}}K</dd>
+
+                    <dt>Pointer Lookup Times</dt>
+                    <dd>{{.Lookups}}</dd>
+
+                    <dt>Memory Allocate Times</dt>
+                    <dd>{{.MemMallocs}}</dd>
+
+                    <dt>Memory Free Times</dt>
+                    <dd>{{.MemFrees}}</dd>
+
+                    <hr/>
+                    <dt>Current Heap Usage</dt>
+                    <dd>{{.HeapAlloc}}</dd>
+
+                    <dt>Heap Memory Obtained</dt>
+                    <dd>{{.HeapSys}}</dd>
+
+                    <dt>Heap Memory Idle</dt>
+                    <dd>{{.HeapIdle}}</dd>
+
+                    <dt>Heap Memory In Use</dt>
+                    <dd>{{.HeapInuse}}</dd>
+
+                    <dt>Heap Memory Released</dt>
+                    <dd>{{.HeapReleased}}</dd>
+
+                    <dt>Heap Objects</dt>
+                    <dd>{{.HeapObjects}}</dd>
+
+                    <hr/>
+                    <dt>Bootstrap Stack Usage</dt>
+                    <dd>{{.StackInuse}}</dd>
+
+                    <dt>Stack Memory Obtained</dt>
+                    <dd>{{.StackSys}}</dd>
+
+                    <dt>MSpan Structures Usage</dt>
+                    <dd>{{.MSpanInuse}}</dd>
+
+                    <dt>MSpan Structures Obtained</dt>
+                    <dd>{{.HeapSys}}</dd>
+
+                    <dt>MCache Structures Usage</dt>
+                    <dd>{{.MCacheInuse}}</dd>
+
+                    <dt>MCache Structures Obtained</dt>
+                    <dd>{{.MCacheSys}}</dd>
+
+                    <dt>Profiling Bucket Hash Table Obtained</dt>
+                    <dd>{{.BuckHashSys}}</dd>
+
+                    <dt>GC Metadada Obtained</dt>
+                    <dd>{{.GCSys}}</dd>
+
+                    <dt>Other System Allocation Obtained</dt>
+                    <dd>{{.OtherSys}}</dd>
+
+                    <hr/>
+                    <dt>Next GC Recycle</dt>
+                    <dd>{{.NextGC}}</dd>
+
+                    <dt>Last GC Time</dt>
+                    <dd>{{.LastGC}} ago</dd>
+
+                    <dt>Total GC Pause</dt>
+                    <dd>{{.PauseTotalNs}}</dd>
+
+                    <dt>Last GC Pause</dt>
+                    <dd>{{.PauseNs}}</dd>
+
+                    <dt>GC Times</dt>
+                    <dd>{{.NumGC}}</dd>
+                    {{end}}
+
+ 
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

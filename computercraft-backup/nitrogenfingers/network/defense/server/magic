@@ -1,0 +1,193 @@
+serverkey = -1
+master = -1
+doorterm = { }
+gunterm = { }
+side = "top"
+
+function split(str, pat)
+  local t = { }
+  local fpat = "(.-)"..pat
+  local last_end = 1
+  local s, e, cap = str:find(fpat, 1)
+  while s do
+    if s ~= 1 or cap ~= "" then
+      table.insert(t,cap)
+    end
+    last_end = e+1
+    s, e, cap = str:find(fpat, last_end)
+  end
+  if last_end <= #str then
+    cap = str:sub(last_end)
+    table.insert(t, cap)
+  end
+  return t
+end
+
+--Adds a door to the list of available defense programs
+function addDoor(msg)
+  local fullmsg = split(msg, ":")
+  if #fullmsg~=3 then
+    print("Invalid message- closing")
+	return
+  end
+  
+  --In this event the key has failed
+  if not tonumber(fullmsg[3])==serverkey then
+    rednet.send(master, "$CLIENT-"..fullmsg[2].."-$NAK")
+	print("Password invalid- operation cancelled")
+	return
+  end
+  
+  table.insert(doorterm, tonumber(fullmsg[2]));
+  rednet.send(master, "$CLIENT-"..fullmsg[2].."-$ACK")
+  print("Door added")
+end
+
+--Adds a gunnery to the list of available defense programs
+function addGun(msg)
+  local fullmsg = split(msg, ":")
+  if #fullmsg~=3 then
+    print("Invalid message- closing")
+	return
+  end
+  
+  --In this event the key has failed
+  if not tonumber(fullmsg[3])==serverkey then
+    rednet.send(master, "$CLIENT-"..fullmsg[2].."-$NAK")
+	print("Password invalid- operation cancelled")
+	return
+  end
+  
+  table.insert(gunterm, tonumber(fullmsg[2]));
+  rednet.send(master, "$CLIENT-"..fullmsg[2].."-$ACK")
+  print("Gunnery added")
+end
+
+--Collates a list of all defense applications and sends them
+function sendResponse(msg)
+  local fullmsg = split(msg, ":")
+  if #fullmsg~=3 then
+    print("Invalid message- closing")
+	return
+  end
+  
+  --In this event the key has failed
+  if not tonumber(fullmsg[3])==serverkey then
+    rednet.send(master, "$CLIENT-"..fullmsg[2].."-$NAK")
+	print("Password invalid- operation cancelled")
+	return
+  end
+  
+  local response = "$RESPONSE"
+  for i=1,#doorterm do
+    response=response..":$DOOR"
+  end
+  for i=1,#gunterm do
+    response=response..":$GUN"
+  end
+  
+  rednet.send(master, "$CLIENT-"..fullmsg[2].."-"..response)
+  print("Response sent: "..response)
+end
+
+--Forwards a request to the required server
+function forwardRequest(msg)
+  local fullmsg = split(msg, ":")
+  
+  -- 1: $FORWARD 2: password 3: list 4: index 5: command
+  for i=1,#fullmsg do
+    print(fullmsg[i])
+  end
+  
+  if #fullmsg~=5 then
+    print("Invalid message- closing")
+	return
+  end
+  
+  --We just ignore bad passwords in this case.
+  if not tonumber(fullmsg[2])==serverkey then
+	print("Password invalid- operation cancelled")
+    return 
+  end
+  
+  local rqid = -1
+  if fullmsg[3] == "$DOOR" then 
+    if tonumber(fullmsg[4]) > #doorterm then
+	  print("Index invalid- operation cancelled.")
+	  return
+	end
+    rqid = doorterm[tonumber(fullmsg[4])]
+  elseif fullmsg[3] == "$GUN" then 
+  if tonumber(fullmsg[4]) > #gunterm then
+	  print("Index invalid- operation cancelled.")
+	  return
+	end
+    rqid = gunterm[tonumber(fullmsg[4])]
+  end
+  
+  rednet.send(master, "$CLIENT-"..rqid.."-"..fullmsg[5])
+  print("Forwarding request to "..rqid..": "..fullmsg[5])
+end
+
+
+local tArgs = { ... }
+if #tArgs==0 then side = "top"
+else side = tArgs[1] end
+term.write("Enter ComputerID of Master Server: ")
+master = tonumber(io.read())
+
+term.clear()
+term.setCursorPos(1,1)
+if #tArgs==2 then serverkey = tonumber(tArgs[2])
+else
+  term.write("Set Server Key (number): ")
+  serverkey = tonumber(io.read())
+end
+term.setCursorPos(1,1)
+term.clearLine()
+
+term.clear()
+term.setCursorPos(1,1)
+rednet.open(side)
+print("MAGIC SERVER")
+print("Written and developed by NitrogenFingers")
+print("Defense applications are for use by authorized personnel only. All computers MUST comply with the"..
+      "network requirements and password authentification is mandatory.")
+print(string.rep("-", 50))
+print("Requesting admission on master server...")
+rednet.send(master, "$MASTER$ADDSERVER-"..os.getComputerID().."-MAGIC")
+local id, msg = rednet.receive(5)
+print("Confirmed with: "..msg)
+if not msg or msg~="$ACK" then
+  print("Not accepted onto server.")
+  return
+end
+
+print("Opening server on "..os.getComputerID().."...")
+print("Waiting for requests...")
+
+while true do
+  local sender,msg = rednet.receive()
+  print("Received: "..msg)
+  
+  --Adds a door to the server
+  if string.find(msg, "$DOOR")==1 then
+    print("Adding door...")
+    addDoor(msg)
+  --Adds a gun to the server
+  elseif string.find(msg, "$GUN")==1 then
+    print("Adding gunnery...")
+    addGun(msg)
+  --Requests all defense items on the network
+  elseif string.find(msg, "$REQUEST")==1 then
+    print("Responding to query...")
+    sendResponse(msg)
+  --Forwards a defense request to an item
+  elseif string.find(msg, "$FORWARD")==1 then
+    print("Forwarding request...")
+    forwardRequest(msg)
+  --A message that should be removed
+  else
+    print("Format unrecognized- discarding")
+  end
+end

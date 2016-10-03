@@ -1,0 +1,8 @@
+This repository was a prototype testing whether voicecalls can be
+done entirely in the browser and entirely in javascript.
+
+This was successful, and the system was rewritten for readability.
+The rewritten system is https://github.com/twitchyliquid64/Micstream
+
+This repository is for historical use only, and enforces no code
+readibility or structure.

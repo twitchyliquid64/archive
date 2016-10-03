@@ -1,0 +1,68 @@
+parent = -1
+
+function processRequest(request, senderid)
+  -- Standard responses, for identifying networks and adding to networks.
+  if request == "$HELLO" then
+	print("Responding to network discovery")
+    rednet.send(senderid, "$HELLO")
+    return
+  elseif request == "$ADDME" then
+    response = "$MASTER$ADDROUTER-"..senderid.."-"..os.getComputerID()
+    print("Sending request to the master, awaiting response...")
+	rednet.send(parent, response)
+    return
+  end
+	
+  --[[ If the message is direct at a server, we just fire off the request to the next
+  router up the chain ]]--
+  if string.find(request, "$SERVER") or string.find(request, "$MASTER") then
+	print("Forwarding message to parent")
+    rednet.send(parent, request)
+	return
+  end
+  
+  --[[ If the message is directed at an end user, we send it to the NEXT router in the chain. ]]--
+  print("Finding - in "..request)
+  local s, e, cap = request:find("(.-)".."-", 1)
+  print("We found at index "..s)
+  if not cap or not tonumber(cap) then
+    print("Invalid message- discarding")
+	return
+  end
+  print("Forwarding message to next router")
+  request = string.sub(request, e+1)
+  rednet.send(tonumber(cap), request)
+end
+
+-- I just assume it's working fine- if a signal interceptor is masquerading as a server
+-- the router won't compromise the integrity of the rest of the system anyway.
+rednet.open("top")
+
+local id, message 
+while true do
+  print("Trying to connect...")
+  rednet.broadcast("$HELLO")
+  id, message = rednet.receive(5)
+  if message=="$HELLO" then break end
+end
+print("Received message: "..message.." from "..id)
+rednet.send(id, "$ADDME")
+while true do
+  id, message = rednet.receive(5)
+  if not message then
+    error("No network routers nearby. Can't connect to intranet.")
+	return
+  end
+  if message=="$ACK" then break end
+end
+print("Added to network- ID="..os.getComputerID())
+parent = id
+print("All messages are being sent to "..id)
+print("Check Master Server for confirmation.")
+
+while true do
+  print("Listening for messages...")
+  id, message = rednet.receive()
+  print("Received message from "..id..": "..message)
+  processRequest(message, id)
+end

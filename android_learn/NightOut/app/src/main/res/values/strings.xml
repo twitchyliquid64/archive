@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Night Out</string>
+
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+
+    <string name="versionText">version</string>
+    <string name="alphaText">Alpha</string>
+    <string name="betaText">Beta</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="action_present_register">Registering&#8230;</string>
+    <string name="login_progress_message">Logging in&#8230;Please wait.</string>
+    <string name="action_choosefile">Choose File</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="loading_default_message">Loading...</string>
+    <string name="action_create">Create</string>
+    <string name="action_join">Join</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_reset_drink_count">Reset Drink Count</string>
+    <string name="action_new_squad">New Squad</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_main">Night Out</string>
+
+    <string name="error_missing_name">A name is required.</string>
+    <string name="error_missing_username">A username is required.</string>
+    <string name="error_missing_email">An email is required.</string>
+    <string name="error_missing_password">A password is required.</string>
+    <string name="error_existing_username">That username is already in use.</string>
+    <string name="error_authentication_details">Please check your details and try again.</string>
+
+
+    <string name="firststart_intro_text">Welcome to Night Out! To get started, you\'re going to need to join or start a squad using the navigation drawer on the left.</string>
+
+    <string-array name="loading_messages">
+        <item>Rollin a durry</item>
+        <item>Predrinking</item>
+        <item>Shredding for stereo</item>
+        <item>Skipping legs day</item>
+        <item>Going for cheeky nandos</item>
+        <item>No-scoping noobs</item>
+        <item>Netflix n chillin</item>
+    </string-array>
+
+    <string name="loading_message_suffix">...</string>
+
+    <string name="create_join_squad_intro_text">Join an existing squad using a squad key from one of your mates</string>
+    <string name="text_or">Or ...</string>
+    <string name="start_squad_text">Start your own squad!</string>
+    <string name="squad_name">Squad name</string>
+    <string name="joinCreateSquadFragTitle">Join/Create Squad</string>
+    <string name="squad_key_invalid">That squad key is invalid!</string>
+    <string name="squad_key_copied">The squad key has been copied to the clipboard!</string>
+    <string name="squad_key_good">Welcome to </string>
+    <string name="squads">Squads</string>
+
+    <string name="tracker">Finding </string>
+    <string name="last_seen">Last Seen: </string>
+    <string name="seconds_ago">seconds ago</string>
+    <string name="lock">lock</string>
+    <string name="battery">Battery:</string>
+
+    <string name="feed">Feed</string>
+
+    <string name="title_activity_new_message">New Message</string>
+    <string name="to_word">To: </string>
+    <string name="private_message_from">private message from</string>
+    <string name="from">from</string>
+    <string name="squad_message_to">Squad message to</string>
+    <string name="sending_online_please_wait">Sending online ... Please Wait.</string>
+</resources>

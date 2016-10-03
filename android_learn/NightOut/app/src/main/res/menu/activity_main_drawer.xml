@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_summary"
+            android:icon="@drawable/ic_star"
+            android:title="@string/feed" />
+
+        <item android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_menu_directions"
+            android:title="@string/action_logout" />
+
+        <item android:id="@+id/nav_reset_drinks"
+            android:icon="@drawable/ic_drink"
+            android:title="@string/action_reset_drink_count" />
+
+        <item android:id="@+id/nav_newsquad"
+            android:icon="@android:drawable/ic_menu_add"
+            android:title="@string/action_new_squad" />
+    </group>
+
+
+    <item android:title="@string/squads"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:layout_gravity="bottom">
+        <menu
+            android:id="@+id/menu_squad">
+
+
+        </menu>
+    </item>
+
+
+
+
+</menu>

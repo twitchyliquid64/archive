@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ASync Task exercise</string>
+
+    <string name="activity_async_display_text">Select a file to download</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="download_button">Download Selected File</string>
+    <string name="download_all_button">Download All Files</string>
+    <string name="calculate_millionth_button">Calculate Millionth Tri-number</string>
+
+    <string name="selected_prefix">Selected: </string>
+    <string name="progress_title_prefix">Downloading: </string>
+    <string name="calculating_message">Calculating...</string>
+
+    <string-array name="downloadable_files">
+        <item>deliver-records.zip</item>
+        <item>recycling-graphics.zip</item>
+        <item>route-maps.zip</item>
+    </string-array>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="dateFormatOptions">
+        <item>dd-MM-yyyy</item>
+        <item>MM-dd-yyyy</item>
+    </array>
+
+</resources>

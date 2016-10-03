@@ -1,0 +1,87 @@
+
+<!-- PROFILE SECTION START -->
+<section id="profile" class="section">
+	<div class="container section-wrapper">
+		<div class="section-content">
+			<div class="row">          
+				<div class="col-md-9">
+
+					{% include search.html %}
+
+					<br/><br />
+					<h2 id="locspot" class="section-title uppercase">Search for suburb</h2>
+
+					<div class="col-md-4 profile-text padding-right-yes">
+						<div class="row">
+							<div class="col-md-12">
+								<table>
+									<tr>
+										<td><span id="rankS" class="icons icons-ranked"></span></td>
+										<td align="right" data-toggle="tooltip" data-placement="top" title="Calculated based on economic resources, education levels, occupation. The larger the number, the better the rank">SEIFA rank: </td>
+										<td id="rank"></td>
+									</tr>
+									<tr>
+										<td><span id="ageS" class="icons icons-smiley"></span></td>
+										<td align="right">Population: </td>
+										<td id="population"></td>
+									</tr>
+								</table>
+
+								<span class="divider"></span>
+
+								<div id="donutchart" style="width: 300px; height: 310px; margin-left:-50px;"></div>
+
+								<span class="divider"></span>
+
+								<h3 class="uppercase">More like this:</h3><br/>
+								<table>
+								<div id="otherlist">
+								</div>
+								</table>
+							</div>
+							<!-- //.col-md-12 -->
+						</div>
+						<!-- //.row -->
+					</div>
+
+					<div class="col-md-8 profile-text padding-left-yes">
+						
+						{% include graphAndCloudtag.html %}
+
+					</div>
+
+				</div>
+				<!-- //.col-md-7 -->
+
+				<!-- PROFILE PICTURE START -->
+				<div class="col-md-3 hidden-xs hidden-sm pp-wrapper">
+					<!-- ACCOLADES START -->
+					<br/>
+					<h2 class="section-title uppercase">Local news</h2>
+					<div class="accolades padding-right-yes">
+						<div class="item">
+							<p class="normal-text">2015</b>
+
+							<div class="content">
+								<h3>Choose a suburb to see related ABC News Stories</h3>
+							</div>
+							<!-- //.content -->
+						</div>
+						<!-- //.item -->
+						<!-- //.item -->
+					</div>
+					<!-- //ACCOLADES END -->
+					<br/><br/>
+					<p>Photos of the suburb</p>
+					<div id="instafeed"></div>
+				</div>
+				<!-- //PROFILE PICTURE END -->
+			</div>
+			<!-- //.row -->
+		</div>
+		<!-- //.section-content -->
+	</div>
+	<!-- //.container -->
+</section>
+<!-- //PROFILE SECTION END -->
+

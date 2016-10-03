@@ -1,0 +1,72 @@
+os.loadAPI('monAPI')
+local mon = monAPI.wrapMonitor('left')
+ 
+mon.setTextColour(colours.white)
+mon.setBackgroundColour(colours.black)
+mon.clear()
+mon.setCursorPos(1, 1)
+ 
+local section1 = mon.createSection(1, 1, 7, 5)
+section1.setBackgroundColour(colours.orange)
+section1.clear()
+section1.write('Hello')
+section1.registerHitbox('tHello', 1, 1, 5, 1)
+ 
+local section2 = mon.createSection(10, 12, 21, 21)
+section2.setTextColour(colours.lime)
+section2.drawBorder('-', '|', '+')
+section2.setCursorPos(5,4)
+section2.write('Test')
+ 
+local section3 = mon.createSection(45, 18, 60, 19)
+local w3, h3 = section3.getSize()
+local sID3 = section3.getSectionID()
+section3.registerHitbox('click_here', 1, 1, w3, h3)
+function drawS3(showInfo)
+        if showInfo then
+                section3.clear()
+                section3.setCursorPos(1,1)
+                section3.write('x, y: ' .. w3 .. ', ' .. h3)
+                section3.setCursorPos(1,2)
+                section3.write('sectionID: ' .. sID3)
+        else
+                section3.setBackgroundColour(colours.green)
+                section3.clear()
+                section3.setCursorPos(1, 1)
+                section3.write('Click here!')
+        end
+end
+local bDraw = false
+drawS3(bDraw)
+ 
+local section4 = mon.createSection(68, 32, 82, 40)
+ 
+ 
+function checkForClick()
+        while true do
+                local ev = {os.pullEvent()}
+                if ev[1] == 'monitor_touch' then
+                        local name, sectionID = mon.getHitbox(ev[3], ev[4])
+                        if name == 'click_here' then
+                                bDraw = not bDraw
+                                drawS3(bDraw)
+                        end
+                end
+        end
+end
+ 
+function animate()
+        while true do
+                section4.setBackgroundColour(colours.blue)
+                section4.fill('o')
+                sleep(1)
+                section4.setBackgroundColour(colours.lime)
+                section4.fill('O')
+                sleep(1)
+                section4.setBackgroundColour(colours.red)
+                section4.fill('0')
+                sleep(1)
+        end
+end
+ 
+parallel.waitForAll(animate, checkForClick)

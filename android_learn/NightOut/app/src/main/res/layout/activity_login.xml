@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_marginTop="22dp"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_logo"
+        android:id="@+id/loginActLogoImg" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginActTitleView"
+        android:layout_below="@+id/loginActLogoImg"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="44dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginActTitleAndVersionView"
+        android:layout_below="@+id/loginActTitleView"
+        android:gravity="center"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginActTitleAndVersionView"
+        android:id="@+id/loginActControlsContainer">
+
+        <EditText
+            android:layout_marginTop="12dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:id="@+id/loginActUsrField"
+             />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:id="@+id/loginActPassField"
+            android:inputType="textPassword"
+            android:layout_below="@+id/loginActUsrField" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loginActPassField">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_register"
+                android:drawableLeft="@drawable/ic_action_register"
+                android:id="@+id/loginActRegisterButton"
+                android:layout_weight="0.5"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_login"
+                android:drawableLeft="@drawable/ic_action_login"
+                android:id="@+id/logincActLoginButton"
+                android:layout_weight="0.5"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginActTitleAndVersionView"
+        android:id="@+id/loginActProgress"
+        android:visibility="gone"
+        android:paddingTop="18dp"/>
+
+</RelativeLayout>

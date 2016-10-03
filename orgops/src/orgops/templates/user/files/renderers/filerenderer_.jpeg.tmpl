@@ -1,0 +1,51 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+{{$path := .PageSpecificData2}}
+
+
+<div id="body" class="container">
+	
+	{{if .Error}}
+	<p class="alert alert-danger">{{.Error}}</p>
+	{{end}}
+	
+    <div id="source">
+        <div class="source-toolbar">
+            
+            <button class="btn btn-default pull-right hidden"><i class="fa fa-plus-square"></i>Add File</button>
+            
+            <ol class="breadcrumb">
+                <li class="root dir">
+                    <a href="/user/files/">Home</a></li>
+                {{range .PageSpecificData3}}
+                {{if .}}
+				<li class="dir">
+                    {{.}}
+                </li>
+                {{end}}
+                {{end}}
+            </ol>
+        </div>
+
+	<div class="panel panel-default file-content">
+		<div class="panel-heading file-head">
+				<i class="icon fa fa-book"></i>
+				{{.PageSpecificData2}}
+		</div>
+
+		<div class="panel-body file-body markdown">
+			<img style="align: middle;" src="/user/download/{{.PageSpecificData2}}"></img>
+		</div>
+	</div>
+    <a href="/user/download/{{.PageSpecificData2}}" target="_parent"><button class="btn btn-danger">Download</button></a>
+    
+    </div>
+</div>
+
+
+
+
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+parent = -1
+serverkey = -1
+
+rednet.open("right")
+
+rednet.broadcast("$HELLO")
+
+-- Standard code, getting access to intranet
+
+local id, message 
+while true do
+  id, message = rednet.receive(5)
+  if not message then
+    error("No network routers nearby. Can't connect to intranet.")
+	return
+  end
+  if message=="$HELLO" then break end
+end
+print("Received message: "..message.." from "..id)
+rednet.send(id, "$ADDME")
+while true do
+  id, message = rednet.receive(5)
+  if not message then
+    error("No network routers nearby. Can't connect to intranet.")
+	return
+  end
+  if message=="$ACK" then break end
+end
+print("Added to network- ID="..os.getComputerID())
+parent = id
+print("All messages are being sent to "..id)
+print("Check Master Server for confirmation.")
+
+-- Requesting submission onto the Magic
+
+term.clear()
+term.setCursorPos(1,1)
+term.write("GUNNERY AUTOMATON ONLINE")
+term.write("*********************")
+
+local tArgs = { ... }
+if #tArgs==1 then serverkey = tonumber(tArgs[1])
+else
+  print("System online- what is server key?")
+  serverkey = tonumber(io.read())
+end
+
+rednet.send(parent, "$SERVERMAGIC$GUN:"..os.getComputerID()..":"..serverkey)
+id, msg = rednet.receive(5)
+if msg == "$ACK" then
+  print("Server key valid. Online")
+elseif msg == "$NAK" then
+  print("Server key invalid. Quitting.")
+else 
+  print("No response. Quitting.")
+end
+
+while true do
+  local id,msg = rednet.receive()
+  if id==parent then
+    if msg=="$FIRE" then
+	  print("Firing cannons!")
+      redstone.setOutput("back", true)
+	  sleep(1)
+      redstone.setOutput("back", false)
+    end
+  end
+end

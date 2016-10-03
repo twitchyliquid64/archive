@@ -1,0 +1,64 @@
+local display = peripheral.wrap("top")
+local pim = peripheral.wrap("front")
+
+display.setTextColor(colors.white)
+display.setBackgroundColor(colors.black)
+display.clear()
+x, y = display.getSize()
+
+display.setTextColor(colors.black)
+display.setBackgroundColor(colors.orange)
+
+for z=2,(y-1) do
+	display.setCursorPos(2, z)
+	for i=2,(x-1) do
+	   display.write( " " )
+	end
+end
+
+display.setCursorPos(2, y/2)
+display.write( "ENTER" )
+redstone.setOutput("right", true)
+redstone.setOutput("left", false)
+
+while true do
+	repeat
+		event, side, xPos, yPos = os.pullEvent("monitor_touch")
+    until pim.getInvName() ~= "EmptyInventory"
+    redstone.setOutput("right", false)
+    redstone.setOutput("left", false)
+    
+	display.setCursorPos(2, y/2)
+	display.write( "....." )
+    
+	local count = pim.getSizeInventory()-1
+	 
+	for i=0, count do
+	 local tab = pim.getStackInSlot(i)
+	 if tab then
+	   for key, value in pairs(tab) do
+		 print(key .. " = " .. tostring(value))
+	   end
+	   pim.pushIntoSlot("down", i, 64, i)
+	 end
+	end
+    
+    display.setCursorPos(2, y/2)
+	display.write( "LEAVE" )
+    redstone.setOutput("right", false)
+    redstone.setOutput("left", true)
+	repeat
+		event, side, xPos, yPos = os.pullEvent("monitor_touch")
+    until pim.getInvName() ~= "EmptyInventory"
+    redstone.setOutput("right", false)
+    redstone.setOutput("left", false)
+	display.setCursorPos(2, y/2)
+	display.write( "....." )
+	for i=0, count do
+	   pim.pullIntoSlot("down", i, 64, i)
+	end
+    redstone.setOutput("right", true)
+    redstone.setOutput("left", false)
+    display.setCursorPos(2, y/2)
+	display.write( "ENTER" )
+end

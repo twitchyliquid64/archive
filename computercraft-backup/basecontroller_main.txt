@@ -1,0 +1,64 @@
+local display, pri_printer, chatbox
+
+local devices = peripheral.getNames()
+local energy_storage = {}
+
+
+function newline ()
+  local cX,cY = term.getCursorPos()
+  term.setCursorPos(1,cY+1)
+end
+
+
+term.write("Now checking computer peripherals ... Please wait.")
+newline()
+for subscript, side in pairs(devices) do
+  term.write(subscript)
+  term.write(" ")
+  term.write(side)
+  term.write(" - ")
+  term.write(peripheral.getType(side))
+  if peripheral.getType(side) == "monitor" then
+    display = peripheral.wrap(side)
+  end
+  if peripheral.getType(side) == "printer" then
+    pri_printer = peripheral.wrap(side)
+  end
+  if peripheral.getType(side) == "chat" then
+    chatbox = peripheral.wrap(side)
+  end
+  if peripheral.getType(side) == "batbox" then
+    energy_storage[#energy_storage + 1] = peripheral.wrap(side)
+  end
+  newline()
+end
+
+term.write("Now redirecting output to primary monitor.")
+term.redirect(display)
+term.clear()
+term.write("Output set to primary monitor.")
+newline()
+
+term.write("Storage: ")
+for subscript, storage in pairs(energy_storage) do
+  newline()
+  term.write(storage.getStored())
+  term.write("/")
+  term.write(storage.getCapacity())
+end
+
+chatbox.say("Base computer online!", 50, true)
+
+
+while true do
+  newline()
+  os.startTimer(5)
+  local event, p1, p2, p3, p4, p5 = os.pullEvent()
+  term.write(event)
+  term.write(" ")
+  term.write(p1)
+  if event == "chat" then
+    term.write(" ")
+    term.write(p2)
+  end
+end

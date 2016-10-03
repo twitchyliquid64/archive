@@ -1,0 +1,150 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+{{$path := .PageSpecificData2}}
+
+
+<div id="body" class="container">
+	
+	{{if .Error}}
+	<p class="alert alert-danger">{{.Error}}</p>
+	{{end}}
+	
+    <div id="source">
+        <div class="source-toolbar">
+            
+            <button class="btn btn-default pull-right hidden"><i class="fa fa-plus-square"></i>Add File</button>
+            
+            <ol class="breadcrumb">
+                <li class="root dir">
+                    <a href="/user/files/">Home</a></li>
+                {{range .PageSpecificData3}}
+                {{if .}}
+				<li class="dir">
+                    {{.}}
+                </li>
+                {{end}}
+                {{end}}
+            </ol>
+        </div>
+        
+<div class="panel panel-default info-box">
+    <table class="panel-footer table file-list">
+        <thead>
+        <tr>
+            <th class="icon"></th>
+            <th class="name">Filename</th>
+            <th class="text">Size</th>
+            <th class="controls" >Controls</th>
+            <th class="date">Date modified</th>
+        </tr>
+        </thead>
+        <tbody>
+			
+				{{if .PageSpecificData2}}
+                <tr class="has-parent">
+                    <td class="icon"><a href="/user/files/{{.PageSpecificData4}}"><i class="fa fa-reply"></i></a></td>
+                    <td class="name"><a href="/user/files/{{.PageSpecificData4}}">..</a></td>
+                    <td class="text"></td>
+                    <td class="date"></td>
+                    <td class="controls"></td>
+                </tr>
+                {{end}}
+			
+				{{range .PageSpecificData5}}
+                <tr >
+                    <td class="icon"><a href="/user/files/{{.}}"><i class="fa fa-folder-open"></i></a></td>
+                    <td class="name"><a href="/user/files/{{.}}">{{.}}</a></td>
+                    <td class="text"></td>
+                    <td class="controls">[ Shared Folder ]</td>
+                    <td class="date"></td>
+                </tr>
+				{{end}}
+			
+                {{range .PageSpecificData}}
+                <tr >
+                    <td class="icon">
+						{{if .IsDir}}
+                        <i class="fa fa-folder"></i>
+						{{else}}
+                        <i class="fa fa-file-text-o"></i>
+                        {{end}}
+                    </td>
+                    <td class="name">
+                        <span class="wrap">
+                            <a href="/user/files/{{$path}}/{{.Name}}">{{.Name}}</a>
+                        </span>
+                    </td>
+                    <td class="text">
+                        <span class="wrap"><a rel="nofollow" href="/user/files/{{$path}}/{{.Name}}">{{.Size}}</a></span>
+                    </td>
+                    
+                    <td class="controls">
+						<span class="wrap"><a href="/user/delete/{{$path}}/{{.Name}}"><i class="fa fa-ban"></i></a><a href="/user/download/{{$path}}/{{.Name}}"><i class="fa fa-download"></i></a><a href="/user/rename/{{$path}}/{{.Name}}">Rename</a></span>
+                    </td>
+                    
+                    
+                    <td class="date">
+                        <span class="wrap">{{.Modified}}</span>
+                    </td>
+                </tr>
+				{{end}}
+        </tbody>
+    </table>
+</div>
+
+ 
+	<br /> <br />
+	
+	
+    <div id="user-setting-container" class="col-md-9">
+        <div id="setting-pwd">
+            <p><i>Please select a file or files to upload.</i></p>
+            <form class="form-horizontal" id="password-form" method="post" enctype="multipart/form-data" action="/user/uploader/{{.PageSpecificData2}}">
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">File<strong class="text-danger">*</strong></label>
+                    <div class="col-md-7">
+                        <input type="file" name="files" id="files" required="required" multiple />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-7">
+                        <button  type="submit" class="btn btn-danger">Upload</button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> <br />
+    <div id="user-setting-container" class="col-md-9">
+        <div id="setting-pwd">
+            <p><i>Create a new folder</i></p>
+            <form class="form-horizontal" id="password-form" method="post" action="/user/newfolder/{{.PageSpecificData2}}">
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Name<strong class="text-danger">*</strong></label>
+                    <div class="col-md-7">
+                        <input name="fname" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-7">
+                        <button  type="submit" class="btn btn-danger">Create</button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        
+    </div>
+</div>
+
+
+
+
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

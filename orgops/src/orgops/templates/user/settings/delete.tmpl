@@ -1,0 +1,52 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+
+<div id="body" class="container" data-page="user">
+    <div id="user-setting-nav" class="col-md-3">
+    <h4>Account Settings</h4>
+    <ul class="list-group">
+		<li class="list-group-item"><a href="/user/setting/account">Account</a></li>
+        <li class="list-group-item"><a href="/user/setting">Account Password</a></li>
+        <li class="list-group-item"><a href="/user/setting/2factor">Two-factor Authentication</a></li>        
+        <li class="list-group-item list-group-item-success"><a href="/user/delete">Delete Account</a></li>
+    </ul>
+
+</div>
+    <div id="user-setting-container" class="col-md-9">
+        <h4>Delete Account</h4>
+        <p><i>Account deletion is not yet implemented.</i></p>
+
+        <p class="alert alert-danger">The operation will delete your account permanently and cannot be undone.</p>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-lg" id="delete-account" data-toggle="modal">Delete Account</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/user/delete" method="post" class="modal-content" id="user-delete">
+                <input type="hidden" name="_csrf" value="NVDqO3y1cf5OLsIRrtI0XL66axo4O4">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Account</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Make sure your are owner of this account. Please enter your password.<strong class="text-danger">*</strong></label>
+                        <input name="password" class="form-control" type="password" placeholder="Type your account password" required="required">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".ControlPanel" >
+
+    <TextView android:text="@string/controlPanel_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        android:id="@+id/controlPanelTitle"
+        android:layout_marginBottom="12dp"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/controlPanelTitle"
+        android:id="@+id/controlPanel_statusContainer">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/controlPanel_networkLabel"
+            android:id="@+id/controlPanel_networkLabel"
+            android:textStyle="bold"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/controlPanel_networkTextViewDefaultStatus"
+            android:id="@+id/controlPanel_networkTextView"
+            android:layout_weight="0.2"/>
+    </LinearLayout>
+
+    <Switch
+        android:paddingTop="22sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/controlPanel_locTrackerSwitch"
+        android:layout_below="@+id/controlPanel_statusContainer"
+        android:text="Location Tracker" />
+
+    <Switch
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/controlPanel_passiveTrackerSwitch"
+        android:layout_below="@+id/controlPanel_locTrackerSwitch"
+        android:text="Status Tracker" />
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/controlPanel_heartbeat"
+        android:id="@+id/controlPanel_sendHeartbeatButton"
+        android:layout_above="@+id/controlPanel_SettingsButton" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/controlPanel_settings"
+        android:id="@+id/controlPanel_SettingsButton"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

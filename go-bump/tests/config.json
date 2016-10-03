@@ -1,0 +1,17 @@
+{
+	"Name": "testExportCall",
+	"Class": "testExport",
+	"Version": 1,
+	"Startup": [
+		"test.js"
+		],
+	"Exports": [
+		"testExport": {
+			"string",
+			"int"
+		}
+	],
+	"GlobalExports": [
+		"testExport",
+	]
+}

@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <TextView android:text="@string/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dip"
+        android:textStyle="bold"
+        android:id="@+id/titleText"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:text="@string/addFriendButtonText"
+        android:id="@+id/addFriendButton" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addFriendButton"
+        android:text="@string/showFriendButtonText"
+        android:id="@+id/showFriendButton" />
+
+    <View
+        android:layout_margin="8dip"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="#FF000000"
+        android:layout_below="@id/showFriendButton"
+        android:id="@+id/horizontalRule"/>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontalRule"
+        android:id="@+id/nameSearchField"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/searchNameTextview"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameSearchEditText"
+            android:layout_weight="0.9"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchFriendsButton"
+        android:layout_below="@+id/nameSearchField"
+        android:text="@string/searchFriendsButtonText"/>
+
+
+</RelativeLayout>

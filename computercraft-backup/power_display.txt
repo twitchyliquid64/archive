@@ -1,0 +1,123 @@
+local display
+
+local devices = peripheral.getNames()
+local energy_storage = {}
+local liquid_storage = {}
+
+
+function newline ()
+  local cX,cY = term.getCursorPos()
+  term.setCursorPos(1,cY+1)
+end
+
+
+term.write("Now checking computer peripherals ... Please wait.")
+newline()
+for subscript, side in pairs(devices) do
+  term.write(side)
+  term.write(" - ")
+  term.write(peripheral.getType(side))
+  if peripheral.getType(side) == "monitor" then
+    display = peripheral.wrap(side)
+  end
+  if peripheral.getType(side) == "batbox" then
+    energy_storage[#energy_storage + 1] = peripheral.wrap(side)
+  end
+  if peripheral.getType(side) == "iron_tank_valve" then
+    liquid_storage[#liquid_storage + 1] = peripheral.wrap(side)
+  end
+  newline()
+end
+
+
+term.redirect(display)
+term.clear()
+
+x, y = term.getSize()
+
+while true do
+os.sleep(5)
+
+term.setTextColor(colors.white)
+term.setBackgroundColor(colors.black)
+term.clear()
+
+term.setTextColor(colors.black)
+term.setBackgroundColor(colors.orange)
+term.setCursorPos(1, 1)
+for i=1,x do
+   term.write( " " )
+end
+term.setCursorPos(x/2 - 7, 1)
+term.write("Power Status:")
+
+term.setCursorPos(1, 3)
+term.setTextColor(colors.white)
+term.setBackgroundColor(colors.black)
+for subscript, storage in pairs(energy_storage) do
+  newline()
+  term.write(" ")
+  term.write(subscript)
+  term.write("    ")
+  term.write(math.floor(storage.getStored()))
+  term.write("/")
+  term.write(math.floor(storage.getCapacity()))
+  term.write(" EU")
+end
+for subscript, storage in pairs(liquid_storage) do
+  storage = storage.getTanks("unknown")[1]
+  newline()
+  term.write(" ")
+  term.write(subscript+#energy_storage)
+  term.write("    ")
+  term.write(math.floor(storage["amount"]))
+  term.write("/")
+  term.write(math.floor(storage["capacity"]))
+  term.write(" MB ")
+  term.write(storage["name"])
+end
+
+
+term.setTextColor(colors.white)
+for subscript, storage in pairs(energy_storage) do
+  calc = math.floor(math.floor(storage.getStored()) / math.floor(storage.getCapacity()) * y / 2)
+
+  if (storage.getStored() / storage.getCapacity() * 100) < 50 then
+    term.setBackgroundColor(colors.orange)
+  else
+    term.setBackgroundColor(colors.green)
+  end
+
+  for i=1,calc do
+     term.setCursorPos(6*math.floor(subscript), y-i)
+     if i == 1 then
+       term.write( subscript )
+     else
+       term.write( "   " )
+     end
+  end
+end
+
+
+
+term.setTextColor(colors.white)
+for subscript, storage in pairs(liquid_storage) do
+  storage = storage.getTanks("unknown")[1]
+  calc = math.floor(math.floor(storage["amount"]) / math.floor(storage["capacity"]) * y / 2)
+
+  if (storage["amount"] / storage["capacity"] * 100) < 50 then
+    term.setBackgroundColor(colors.orange)
+  else
+    term.setBackgroundColor(colors.green)
+  end
+
+  for i=1,calc do
+     term.setCursorPos(6*math.floor(subscript+#energy_storage), y-i)
+     if i == 1 then
+       term.write( subscript+#energy_storage )
+     else
+       term.write( "   " )
+     end
+  end
+end
+end

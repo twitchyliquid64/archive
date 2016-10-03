@@ -1,0 +1,41 @@
+
+print("Which side is your moden on? left, top, front etc.")
+side = io.read()
+rednet.open(side)
+
+print("Attempting to access the intranet. Please wait...")
+rednet.broadcast("$HELLO")
+
+local id, message 
+while true do
+  id, message = rednet.receive(5)
+  if not message then
+    error("No network routers nearby. Can't connect to intranet.")
+	return
+  end
+  if message=="$HELLO" then break end
+end
+print("A network has been located!")
+rednet.send(id, "$ADDME")
+while true do
+  id, message = rednet.receive(5)
+  if not message then
+  -- This may be by choice later on down the track, filtering certain ids etc.
+    error("Initialization failed... network did not accept your computer.")
+	return
+  end
+  if message=="$ACK" then break end
+end
+
+print("Successfully online. Updating your preferences...")
+local file = io.open("pref", "w")
+if file then
+  file:write("routerid="..id.."\nside="..side)
+  file:close()
+end
+
+term.clear()
+term.setCursorPos(1,1)
+
+print("A preference file has been created in the root directly. Do not delete this file!")
+print("You have successfully been admitted to the network.")

@@ -1,0 +1,172 @@
+<!-- PROFILE SECTION START -->
+<script type="text/javascript" >
+when_ready(function() {
+	$.ajax({
+		url: '/api/locations',
+		context: document.body
+	}).done(function(data){
+		locations = JSON.parse(data);
+		$( "#input-search-compare" ).autocomplete({
+			source: locations
+		});
+	});
+	
+	Array.prototype.zip = function(el, f){
+		return this.map(function(e, i) {
+			return f(e, el[i]);
+		});
+	};
+	
+	var setupPieChart = function(element, data) {
+        var headings = ['Children', 'Young Adults', 'Middle Aged', 'Elderly']
+        var top = data.reduce(function(l, r) { return l + r; });
+        var dataTableRows = headings.zip(data, function(heading, value) { 
+        	return [heading, (100.0 * value) / top];
+        });
+        dataTableRows.unshift(['Population', 'Percentage']);
+        
+		var pidata = google.visualization.arrayToDataTable(dataTableRows);
+
+        var options = {
+          title: 'Age Distribution',
+          titleTextStyle: {color:'white', fontSize: 18},
+          pieHole: 0.4,
+          colors: ['#3D4A78', '#c80a48', '#FA7AA4', '#F2A2BC', '#F5BFD1', '#D1B6BF', '#BDB3B6'],
+          backgroundColor: '#0d0c0d',
+          legend: { position: 'none' }
+        }
+        
+        var chart = new google.visualization.PieChart(element);
+        chart.draw(pidata, options);
+    };
+    
+    var fixCrime = function(cdata){
+    	d = {}
+    	cdata.map(function(c) {
+    		d[c[2]] = parseInt(c[4]);
+    	});
+    	
+    	return d;
+    }
+    
+	var updateRegion = function(parentName, regionalData) {
+		console.log(regionalData);
+		var donut = $('<div>').css({'width': '300px', 'height': '310px', 'margin-left': '-50px'})
+		var totalPopulation = regionalData.population.slice(0, -1).reduce(function(l, r) { return l + r; }); 
+		
+		$(parentName).html(
+			$('<div>')
+				.addClass('row')
+				.append($('<div>')
+					.addClass('col-md-12')
+					.append($('<h2>')
+						.addClass('section-title uppercase')
+						.html(regionalData.name))
+					.append($('<p>')
+						.html('<span class="icons icons-ranked"></span><span> SEIFA Rank: ' + regionalData.rank[1] + '</span>'))
+					.append($('<p>')
+						.html('<span class="icons icons-smiley"></span> Population: ' + totalPopulation.formatMoney(0, ',', ',') + '</span>'))
+					.append($('<span>')
+						.addClass('divider'))
+					.append(donut)))
+		
+		setupPieChart(donut[0], regionalData.population.slice(0, -1))
+	}
+	
+    var mostDifferentCrimes = function(c1, c2) {
+    	c1 = fixCrime(c1);
+    	c2 = fixCrime(c2);
+    	
+    	var differences = []
+    	for (var key in c1) {
+    		differences.push([key, 1 - (c2[key] / c1[key])]);
+    	}
+    	
+    	return differences.sort(function(a, b) {
+    		return Math.abs(b[1]) - Math.abs(a[1]);
+    	});
+    }
+    
+    var labels = ['default', 'primary', 'success', 'info', 'warning', 'danger']
+    
+	var updateComparison = function(primary, secondary) {
+		var crimeShit = mostDifferentCrimes(primary.crime, secondary.crime).slice(0, 4);
+		
+		$('#compare_div')
+			.empty()
+			.append($('<h3>')
+				.html('is most similar to'))
+			.append($('<span>').addClass('divider'))
+			.append($('<h3>').html("Common Keywords"))
+			.append($('<div>')
+				.css({'width': '70%'})
+				.append(getRandom6Words()
+						.zip(labels, function(word, label) {
+							return $('<span>')
+								.addClass('label label-' + label)
+								.html(word);
+					})));
+		
+		$('#compare_div span').after(' ');
+	}
+
+	var compare_for_lga = function(lga) {
+		console.log("Loading for " + lga);
+		$('#compare-spinner').css({'visibility': 'initial'})
+		
+		$.getJSON('/api/display', {'lga': lga}, function(result) {
+			var primary = result.shift(), secondary = result.shift();
+
+			updateRegion('#primary_lga', primary);
+			updateRegion('#secondary_lga', secondary);
+			
+			updateComparison(primary, secondary);
+			
+			$('#compare-spinner').css({'visibility': 'hidden'})
+		});
+	}
+	
+    $('#button-compare').click(function(){
+    	var text = $('#input-search-compare').val()
+    	console.log(text);
+    	
+    	if (locations.indexOf(text) >= 0)
+            compare_for_lga(text);
+    });
+});
+
+</script>
+
+<section  id="services" class="section" style="margin-top:100px">
+	<div class="container section-wrapper">
+		<div class="section-content">
+			<div class="row">          
+				<div class="col-md-12">
+					<br />
+					<h2 id="locspot" class="section-title uppercase">Search for suburb to compare</h2>
+				
+					<div id="searchbox" class="ui-widget">
+						<!-- <p class="input-description">Suburbs Like</p> -->
+						<input id="input-search-compare" type="text" size="15" placeholder="Search for suburbs similar to..."/>
+						<input id="button-compare" class="button-search" type="submit" value=" "/>
+						<div id="compare-spinner" class="spinner" style="display:inline; margin-top:0px; visibility:hidden;">
+						  <div class="cube1"></div>
+						  <div class="cube2"></div>
+						</div>
+					</div>
+					
+					<div id="primary_lga" class="col-md-4 profile-text padding-right-yes" style="padding-top: 3em;">
+					</div>
+
+					<div id="compare_div" class="col-md-4 profile-text" style="margin-top: 3.5em;">
+					</div>
+					
+					<div id="secondary_lga" class="col-md-4 profile-text padding-left-yes" style="padding-top: 3em;">
+					</div>
+
+					
+				</div>
+				
+</section>
+<!-- //PROFILE SECTION END -->
+

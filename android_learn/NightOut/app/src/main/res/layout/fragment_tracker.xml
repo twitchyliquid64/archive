@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/trackerFragTopContainer">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trackerFragLastSeenText"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trackerFragProviderText"
+            android:gravity="right"
+            android:layout_weight="0.6" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackerFragBattText"
+        android:layout_below="@+id/trackerFragTopContainer"/>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trackerFragBattText"
+        android:id="@+id/trackerFragMapContainer"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/trackerFragMap"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/trackerFragTopContainer"
+            android:orientation="horizontal"
+            android:layout_height="fill_parent">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/trackerFragLoadingImage"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_find"
+        android:tint="#000000" />
+
+
+</RelativeLayout>

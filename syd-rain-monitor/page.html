@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Sydney Rain Monitor</title>
+
+    <style>
+    body{
+      background-color: #000000;
+      color: white;
+      margin: 24px;
+    }
+    .imgDiv {
+      float: left;
+      display: inline-block;
+    }
+    .mainText{
+      display: inline-block;
+      margin-left: 12px;
+      box-sizing: border-box;
+      width: 512px;
+    }
+    .subTitle {
+      font-size: 128%;
+      font-weight: 150%;
+    }
+    .barContainer {
+      padding: 4px;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid;
+      border-color: red;
+      overflow: hidden;
+    }
+    .rainBar {
+      background-color: blue;
+      height: 20px;
+      color: green;
+      text-align: right;
+    }
+    </style>
+
+    <meta http-equiv="refresh" content="30">
+  </head>
+
+  <body>
+    <div class="imgDiv">
+      <img src="/img" />
+      <br>
+      Radar data sourced from the Bureau of Meterology<br>
+      Radar render timestamped {{.Updated}} hrs
+    </div>
+    <div class="mainText">
+      <p class="subTitle"><b>Zone analysis</b></p>
+
+      {{range .Zones}}
+        <span style="display: inline-block;width: 75%;margin-bottom: 2px;margin-top: 5px;">Zone: {{.Name}}</span>
+        <span style="color: {{if .Triggered}}red{{else}}green{{end}};">{{if .Triggered}}WARN{{else}}OK{{end}}</span>
+        <div class="barContainer">
+          <div class="rainBar" style="width: {{.Percentage}}%;">
+          </div>
+        </div>
+      {{end}}
+
+
+      <p class="subTitle"><b>Prognosis</b></p>
+      {{if .Prognosis.Good}}
+        <p style="font-size: 115%; color: #11EE11;"><b>No Rain Imminent</b></p>
+      {{else}}
+      <p style="font-size: 115%; color: #EE1111;"><b>Rain Imminent / already raining</b></p>
+      {{end}}
+
+      <p style="font-size: 75%">
+        {{if .Prognosis.CertainityAvailable}}
+        Certainity: {{.Prognosis.Certainity}}%
+        {{else}}
+        Certainity unknown
+        {{end}}<br>
+        Prognosis generated using the <i>{{.Prognosis.Name}}</i> strategy</p>
+    </div>
+  </body>
+</html>

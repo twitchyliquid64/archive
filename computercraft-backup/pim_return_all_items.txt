@@ -1,0 +1,7 @@
+local pim = peripheral.wrap("front")
+ 
+local count = pim.getSizeInventory()-1
+ 
+for i=0, count do
+   pim.pullIntoSlot("down", i, 64, i)
+end

@@ -1,0 +1,166 @@
+Hi Everyone!
+
+First off, thanks for downloading and taking a bit
+of and interest in this bit of software. I'm glad
+so many people have found interesting and I look
+forward to seeing/hearing what is done with it.
+
+I've attached my entire network directory in this
+archive, which includes the routines that run the
+client and server computer, as well as two test
+programs used to test the sending and receiving
+of emails from the server. If you want to make
+modifications to my program at all, these files
+are a good place to start.
+
+  --//Getting your system up and running\\--
+
+To begin with, you should set up a mail server
+computer. This will need to be a dedicated
+machine which every computer in your network
+will need to be in close proximity to (50 blocks).
+On this computer, install the mailserver and
+startup file to the ROOT. You should also edit
+the startup file and replace the "bottom" text
+with whichever side you've installed your wireless
+connector (top, bottom, left, right, front, back).
+Then just hold CTRL-R for a second and your mail
+server should boot up. Make a note of the number
+at the top of the prompt- this is the server ID
+and you'll need it later.
+
+Now you can go ahead and install the mail client
+onto your own computer. Copy the entire client
+directory somwhere onto your computer. Before 
+you run the client you need to identify the 
+server- this is the number from before. Navigate
+to inside the directory, and edit the pref file. 
+You should see the following:
+
+serverid=0
+side=left
+
+Replace the 0 with the number your server gave
+you, and the side with whichever side your
+wireless is on (as before). You can now run your
+mailclient!
+
+          --//Using the mail client\\--
+
+Emails are sent by providing a computers ID number.
+If you're not sure what that number is, find the
+computer you want to send an email to, open a
+lua prompt and type:
+
+os.getComputerID()
+
+That number exactly is the one you should send the
+email to. This number is not stored in the email
+header however, for privacy reasons, and only the
+name chosen by the computer will be displayed,
+so you will need to know the address of your
+computer before you can send it.
+
+The name sent in your emails will appear at the
+bottom of your mail client, and you can change
+it by selecting the CHANGE NAME option. The name
+is the same as the ComputerLabel used in lua,
+and can be changed with the following:
+
+os.setComputerLabel("Your name here")
+
+Your computer won't automatically check for email,
+but you can query the mail server by choosing the
+REFRESH EMAIL option. All mail will be sent to
+your unread email box. If the refresh takes 5 or
+more seconds, and you never receive any email,
+there may be a problem with your server.
+
+In addition to keeping unread email, you can also
+choose to archive emails on your computer by
+choosing archive- these can be read at any time.
+Be aware that closing your client without archiving
+your unread email will lead to that mail being
+lost!
+
+          --//Advanced Mail Programs\\--
+
+Emails don't have to be sent and received through
+the email client, you can write your own program
+to do this automatically. This section will
+discuss how to send emails to your server
+manually, and how to receive and process them.
+
+Emails are always written with the following
+format:
+
+<recipient>!SP!<from>!SP!<time>!SP!<message>
+
+So for example, the following string:
+
+35!SP!Nitrofingers!SP!20.050!SP!Hello, World!
+
+is an email sent to computer ID 30, from
+Nitrofingers, at 8:05 PM with the contents
+"Hello, World!". You can chain as many emails
+together as you like, but making sure they are
+all separate by the !SP! separator. Using the
+rednet API, you can send your own emails from
+programs to other computers connected by that
+server.
+
+The server will also need an identifier to
+recognize what you are sending is an email. This
+should be appended to the very front of your email
+string. These are the following identifiers:
+
+$EMAIL<ID>- from client to server, indicating the
+        leading string is an email.
+$REQUEST<ID>- from client to server, asking for all
+        email addressed to this computer to be
+        sent in a message
+
+$ACK - from server to client, confirming that the
+       last email sent was successfully stored and
+       is awaiting collection
+$RESPONSE- from server to client, with an attached
+       string of all emails for that computer.
+
+Reading emails is tricker and I recommend reading
+through my code in the mailserver and mailclient
+before attempting to make your own. You will need
+the split the response string by "!SP!" with a
+custom algorithm and add the constitutent parts
+into a list of values.
+
+With these things together you can produce lots
+of great programs that wait on redstone input to
+inform users that trains have arrived or a switch
+has been pulled or intruders have been detected.
+It can also be used by other computers to inform
+users if someone has attempted to access a locked
+computers one too many times or if a
+computationally-intensive process has been
+completed, or if someone beat your high score in
+a video game- the possibilities are as varied as
+your imagination allows!
+
+           --//Winding up stuff\\--
+
+Though you're free to distribute and
+modify this code to your hearts desire. I'd ask
+that you distribute this readme with the software,
+and keep the comments at the top of the code with
+my name on them.
+
+Thanks again, so much for taking an interest. If
+you have any problems with the program or you'd
+like to know more about it let me know by posting
+on the video (chances are other people may have
+the same question), or send me an email to my
+youtube account (NitrogenFingers) or to my 
+computercraft forums account (as above but without
+capitals).
+
+Enjoy!
+--NitrogenFingers

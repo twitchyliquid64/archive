@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="preferences_friend"
+        android:title="@string/preferencesFriendCategoryTitle" >
+
+        <ListPreference
+            android:key="preferences_friend_dateformat"
+            android:defaultValue="@string/preferencesFriendDateFormatDefault"
+            android:entries="@array/dateFormatOptions"
+            android:entryValues="@array/dateFormatOptions"
+            android:title="@string/preferencesFriendDateFormatTitle"
+            android:summary="%s" />
+
+        <CheckBoxPreference
+            android:key="preferences_friend_canDeleteFriends"
+            android:defaultValue="true"
+            android:title="@string/preferencesFriendCanDeleteFriendsTitle" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

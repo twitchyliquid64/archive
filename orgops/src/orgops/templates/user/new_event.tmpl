@@ -1,0 +1,53 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+
+<div id="body" class="container" data-page="user">
+    <div id="user-setting-container" class="col-md-9">
+        <div id="setting-pwd">
+            <h4>New Event</h4>
+            <p><i>Please enter the details of your new event below.</i></p>
+            <form class="form-horizontal" id="password-form" method="post" action="/user/events/create">
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Title<strong class="text-danger">*</strong></label>
+                    <div class="col-md-7">
+                        <input name="title" class="form-control" placeholder="" required="required">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Date<strong class="text-danger">*</strong></label>
+                    <div class="col-md-7">
+                        <input type="datetime-local" name="date" class="form-control" required="required">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Short Description</label>
+                    <div class="col-md-7">
+                        <input name="desc" class="form-control" placeholder="">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">List</label>
+                    <div class="col-md-7">
+                        <input name="list" class="form-control" placeholder="(optional)">
+                    </div>
+                </div>
+                
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-7">
+                        <button type="submit" class="btn btn-primary">Create</button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

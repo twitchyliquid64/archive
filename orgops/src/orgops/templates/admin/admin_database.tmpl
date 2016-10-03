@@ -1,0 +1,127 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+<div id="body" class="container" data-page="admin">
+    <div id="user-setting-nav" class="col-md-2 admin-nav">
+    <ul class="list-group">
+        <li class="list-group-item"><a href="/admin"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+        <li class="list-group-item"><a href="/admin/users"><i class="fa fa-users fa-lg"></i> Users</a></li>
+        <li class="list-group-item active"><a href="/admin/repos"><i class="fa fa-book fa-lg"></i> Data Storage</a></li>
+        <li class="list-group-item"><a href="/admin/config"><i class="fa fa-cogs fa-lg"></i> Configuration</a></li>
+    </ul>
+</div>
+     <div id="admin-container" class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Data Storage
+            </div>
+            
+            {{if .Error}}
+            <p class="alert alert-danger">{{.Error}}</p>
+            {{else}}
+            <p></p>
+            {{end}}
+            
+            {{with .PageSpecificData}}
+            <form action="/admin/db/do" method="post" class="form-horizontal">
+
+	                <div class="form-group">
+	                    <label class="col-md-3 control-label">Database Query</label>
+	                    <div class="col-md-7">
+	                        <input name="query" type="text" class="form-control" placeholder="" value="{{.Query}}">
+	                    </div>
+	                </div>
+				<hr/>
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-6">
+						<button type="submit" class="btn btn-lg btn-primary btn-block">Execute</button>
+					</div>
+				</div>
+			</form>
+				
+            <div class="panel-body">
+                <a href="/admin/db/do?query=SELECT * FROM __Table;" class="btn btn-primary">See Tables</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+							{{range .Headings}}
+							<th>{{.}}</th>
+                            {{end}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .Data}}
+							<tr>
+							{{range .}}
+								<td>{{.}}</td>
+							{{end}}
+							</tr>
+						{{end}}
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            <div class="panel-heading">
+                Shared folders
+            </div>
+            
+            
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+							<th>Shared folder</th>
+							<th>User group</th>
+							<th>No. Users with access</th>
+							<th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+							{{range .SharedFolders}}
+							<tr>
+								{{range .}}
+									<td>{{.}}</td>
+								{{end}}
+								<td><a href="/admin/db/shared/delete/{{index . 1}}"><i class="fa fa-ban"></i></a></td>
+							</tr>
+							{{end}}
+                    </tbody>
+                </table>
+                
+                <hr/>
+                <p>Create shared folder</p>
+                
+				<form action="/admin/db/sharedfolders/do" method="post" class="form-horizontal">
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Name</label>
+							<div class="col-md-7">
+								<input name="name" type="text" class="form-control" placeholder="" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">Group name</label>
+							<div class="col-md-7">
+								<input name="gname" type="text" class="form-control" placeholder="" value="">
+							</div>
+						</div>
+					<hr/>
+					<div class="form-group">
+						<div class="col-md-offset-3 col-md-6">
+							<button type="submit" class="btn btn-lg btn-primary btn-block">Create</button>
+						</div>
+					</div>
+				</form>
+                
+			</div>
+            
+            {{end}}
+            
+        </div>
+    </div>
+</div>
+
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

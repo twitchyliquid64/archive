@@ -1,0 +1,11 @@
+package main
+
+import (
+	"github.com/hoisie/web"
+	"voicecall"
+)
+
+
+func main() {
+	voicecall.Register()
+}

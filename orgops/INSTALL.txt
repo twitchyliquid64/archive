@@ -1,0 +1,9 @@
+go get -u github.com/cznic/ql
+go install -tags purego github.com/cznic/ql
+go install orgops
+
+Run it in the root project folder.
+
+
+On first run (or whenever there are 0 users in the system) you will be able to go to the
+/install page to setup an admin account.

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Week 2 Exercise</string>
+
+    <string name="hello_world">Welcome to ma App!</string>
+    <string name="action_settings">Settings</string>
+    <string name="submit_text">Submit</string>
+    <string name="clear_text">Clear All</string>
+    <string name="exit_text">Exit</string>
+    <string name="submit_pressed_toast">Submit button Clicked!</string>
+
+    <string name="default_name">Your Name</string>
+    <string name="default_number">Your phone</string>
+    <string name="default_type">Your Phone Type</string>
+    <string name="default_email">Your Email</string>
+
+    <string name="agree_text">I Agree</string>
+    <string name="disagree_text">I Disagree</string>
+
+    <string-array name="phone_type_array">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Mobile</item>
+    </string-array>
+    <string name="title_activity_activity_two">Confirm details! (Activity 2)</string>
+
+</resources>

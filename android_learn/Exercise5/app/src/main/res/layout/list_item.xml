@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingRight="6dp">
+
+    <LinearLayout
+        android:id="@+id/leftDisplay"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
+        android:background="@color/darkblue"
+         >
+
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:id="@+id/arrivalTime"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="10 mins"
+            />
+
+        <ProgressBar
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            android:id="@+id/arriveTimeProgress" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="25dip"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/platform"
+            android:text="Platform 23" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrivalTimeTextview"
+            android:text="Keklord" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/status"
+            android:text="On Time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_weight="0.2" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/destinationTime"
+            android:text="15:01"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/destination"
+            android:text="North Ryde"/>
+
+    </LinearLayout>
+
+</LinearLayout>

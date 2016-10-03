@@ -1,0 +1,39 @@
+{{template "header_guest.tmpl" .}}
+
+
+
+<div class="container" id="body" data-page="user-signin">
+    <form action="/install" method="post" class="form-horizontal card" id="login-card">
+        
+        <h3>First-Time setup</h3>
+        
+        <p>Please setup your admin account. {{.}}</p>
+
+        <div class="form-group ">
+            <label class="col-md-4 control-label">Username<strong class="text-danger">*</strong> </label>
+            <div class="col-md-6">
+                <input name="username" class="form-control" placeholder="Type your username" value="" required="required">
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <label class="col-md-4 control-label">Password<strong class="text-danger">*</strong> </label>
+            <div class="col-md-6">
+                <input name="passwd" type="password" class="form-control" placeholder="Type your password" required="required">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-6">
+                <button type="submit" class="btn btn-lg btn-primary">Setup</button>
+            </div>
+        </div>
+
+        
+    </form>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".ActivityOne">
+
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/act1_entry_msg" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/default_name"
+        android:ems="10"
+        android:id="@+id/nameInput"
+        android:layout_below="@+id/act1_entry_msg"
+        android:layout_centerHorizontal="true" />
+
+
+    <LinearLayout
+        android:id="@+id/phoneControl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/nameInput">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="11"
+            android:id="@+id/phoneInput"
+            android:hint="@string/default_number"
+            android:layout_marginTop="10dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/emailInput"
+        android:layout_below="@+id/phoneControl"
+        android:hint="@string/default_email"
+        android:layout_marginTop="0dp" />
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_text"
+        android:id="@+id/subButton"
+        android:layout_below="@+id/emailInput"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_text"
+        android:id="@+id/clearButton"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/subButton" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_text"
+        android:id="@+id/exitButton"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/clearButton" />
+
+</RelativeLayout>

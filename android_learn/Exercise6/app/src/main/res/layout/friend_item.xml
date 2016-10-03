@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="108dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:text="Jason Neville"
+        android:id="@+id/friendName"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Occupation: Networker"
+            android:id="@+id/friendOccupation"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/friendCity"
+            android:text="Lives: Sydney" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/friendSince"
+            android:text="Friend Since: 08/30/2015" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/ic_delete"
+        android:layout_weight="0.1"
+        android:id="@+id/deleteFriendButton" />
+
+
+</LinearLayout>

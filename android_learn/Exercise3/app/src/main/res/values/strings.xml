@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Exercise3</string>
+
+    <string name="binTitle">Bin Type</string>
+    <string name="binTypeHint">Type(e.g waste)</string>
+    <string name="binSizeHint">Size (e.g. 60 L)</string>
+    <string name="nr">no.</string>
+    <string name="clearText">Clr all</string>
+    <string name="resetText">Reset quantity</string>
+    <string name="rotateButtonText">Rotate</string>
+    <string name="binQtyHasFocus">Bin Quantity HAS focus</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.ciphersink.nightout.view.JoinCreateSquadFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/joinCreateFragControlsContainer"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_join_squad_intro_text"
+            android:id="@+id/joinCreateFragHelpText"
+            android:paddingTop="20sp"
+            android:layout_weight="0.03"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10sp"
+            android:layout_weight="0.1">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="squad key"
+                android:layout_weight="0.14"
+                android:id="@+id/joinCreateFragSquadKeyEditText" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:drawableLeft="@drawable/ic_action_register"
+                android:id="@+id/joinCreateFragJoinButton"
+                android:text="@string/action_join"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/text_or"
+            android:textSize="30sp"
+            android:layout_weight="0.35"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_squad_text"
+                android:id="@+id/joinCreateFragStartSquadText"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/joinCreateFragStartSquadText"
+                android:paddingTop="10sp" >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/squad_name"
+                    android:layout_weight="0.14"
+                    android:id="@+id/joinCreateFragSquadNameEditText" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.23"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:text="@string/action_create"
+                    android:id="@+id/joinCreateFragCreateButton" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/joinCreateFragProgress"
+        android:visibility="gone" />
+
+</RelativeLayout>

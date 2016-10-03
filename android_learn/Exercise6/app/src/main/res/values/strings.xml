@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Exercise6</string>
+
+    <string name="titleText">FriendMate :D</string>
+    <string name="addFriendButtonText">Add Friend</string>
+    <string name="showFriendButtonText">List All Friends</string>
+    <string name="searchNameTextview">Name</string>
+    <string name="searchFriendsButtonText">Search Friends</string>
+
+    <string name="preferencesFriendCategoryTitle">Friend Preferences</string>
+    <string name="preferencesFriendDateFormatTitle">Date Format</string>
+    <string name="preferencesFriendDateFormatDefault">dd-MM-yyyy</string>
+    <string name="preferencesFriendCanDeleteFriendsTitle">Can delete friends</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_friend">Add Friend Activity</string>
+    <string name="title_activity_show_friends">Friends</string>
+
+    <string name="prefix_occupation">Occupation: </string>
+    <string name="prefix_city">City: </string>
+    <string name="prefix_since">Friend since: </string>
+
+    <string name="friendAddedToast">Friend data successfully added</string>
+    <string name="cannotDeleteFriendsErrorMsg">Sorry you cannot delete friends. Check your application setting!</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>

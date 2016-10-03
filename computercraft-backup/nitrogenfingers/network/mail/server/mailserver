@@ -1,0 +1,155 @@
+--MailServer, written by NitrogenFingers--
+
+--[[ You are free to change, distribute and run this code, but
+please regonized the authorship and do not distribute as your
+own work. ]]--
+
+umail = {}
+side = "bottom"
+master = -1
+
+function split(str, pat)
+  local t = { }
+  local fpat = "(.-)"..pat
+  local last_end = 1
+  local s, e, cap = str:find(fpat, 1)
+  while s do
+    if s ~= 1 or cap ~= "" then
+      table.insert(t,cap)
+    end
+    last_end = e+1
+    s, e, cap = str:find(fpat, last_end)
+  end
+  if last_end <= #str then
+    cap = str:sub(last_end)
+    table.insert(t, cap)
+  end
+  return t
+end
+
+function writeToFile()
+  local file = io.open("archive", "w")
+  if file then
+    for i=1,#umail do
+      file:write("!SP!"..umail[i].ID.."!SP!"..
+          umail[i].from.."!SP!"..umail[i].time..
+          "!SP!"..umail[i].msg)
+    end
+    file:close()
+  end
+end
+
+function readFromFile()
+  if(fs.exists("archive")) then
+    local file = io.open("archive", "r")
+    local fullstr = ""
+    local fline = file:read()
+    while fline do
+      fullstr=fullstr..fline
+      fline = file:read()
+    end
+    file:close()
+    local t = split(fullstr, "!SP!")
+
+    for i=1,#t,4 do
+      table.insert(umail, {
+        ID = tonumber(t[i]),
+        from = t[i+1],
+        time = tonumber(t[i+2]),
+        msg = t[i+3]
+      })
+    end
+  end
+end
+
+function dispatchRequest(sender)
+  resp="$RESPONSE"
+  count=0
+  mail=""
+  idx=1
+  while idx<table.getn(umail)+1 do
+    if umail[idx].ID==sender then
+      count=count+1
+      mail=mail.."!SP!"..umail[idx].from
+               .."!SP!"..umail[idx].time
+               .."!SP!"..umail[idx].msg.." "
+      table.remove(umail, idx)
+      idx=idx-1
+    end
+    idx=idx+1
+  end
+  resp="$CLIENT-"..sender.."-"..resp..mail
+  rednet.send(master, resp)
+  writeToFile()
+end
+
+function addMail(msg, sender)
+  msgcpt = split(msg, "!SP!")
+  table.insert(umail, {
+    ID = tonumber(msgcpt[1]),
+    from = msgcpt[2],
+    time = tonumber(msgcpt[3]),
+    msg = msgcpt[4]
+  })
+  --We used to send an ACK but this is impossible now, because emails are anonymous
+  --rednet.send(master, "$CLIENT-"..msgcpt[1].."-$ACK")
+  writeToFile()
+end
+
+local tArgs = { ... }
+if #tArgs<1 then
+  print("No arguments! Usage: mailserver <serverid> <modemside>")
+  return
+end
+if #tArgs~=2 then side = "top"
+else side = tArgs[2] end
+term.write("Enter ComputerID of Master Server: ")
+master = tonumber(tArgs[1])
+if master == -1 then
+  print("Bad ID! Check ID of master server and update startup.");
+  return
+end
+
+term.clear()
+term.setCursorPos(1,1)
+rednet.open(side)
+
+local id, msg;
+while true do
+  print("Requesting admission on "..master)
+  rednet.send(master, "$MASTER$ADDSERVER-"..os.getComputerID().."-MAIL")
+  id, msg = rednet.receive(5)
+  if msg=="$ACK" then
+    print("Confirmed.")
+	break;
+  end
+end
+
+print("Retrieving archive...")
+readFromFile()
+print("Complete.")
+term.clear()
+term.setCursorPos(1,1)
+print("Minecraft Email Server")
+print("Designed by NitrogenFingers")
+print(string.rep("-", 50))
+
+while true do
+  print("Message Count: "..table.getn(umail))
+  local sender,msg = rednet.receive()
+  if string.find(msg, "$REQUEST") then
+    print("Message received!")
+    print("Request received: Responding...")
+	msg = string.gsub(msg, "$REQUEST", "")
+	-- The master server is always the sender, but it must be replaced with the actual recipient
+	sender = tonumber(msg)
+    dispatchRequest(sender)
+	print("Complete.")
+  elseif string.find(msg, "$EMAIL") then
+    print("Message received!")
+    print("Email received: Archiving...")
+	msg = string.gsub(msg, "$EMAIL", "")
+    addMail(msg, sender)
+	print("Complete.")
+  end
+end

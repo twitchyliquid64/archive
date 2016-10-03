@@ -1,0 +1,371 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    
+    <!-- Site Title -->
+    <title>BigDataBigDreams - find your Secret Suburb.</title>
+    
+    <meta name="description" content="Creative Resume Template">
+    <meta name="keywords" content="berg, creative, resume, template">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Font icons CSS -->
+    <link href="/static/plugins/icons-mind/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Plugins CSS -->
+    <link href="/static/plugins/jpreloader/css/jpreloader.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/animate-css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/magnificPopup/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/flexSlider/flexslider.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/spinners.css" rel="stylesheet" type="text/css">
+    
+    <!-- Main CSS -->
+    <link href="/static/css/berg.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    
+    <!-- Color CSS -->
+    <!--<link href="assets/css/colors/green.css" rel="stylesheet" type="text/css">-->
+    
+    <!-- Modernizr JS for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 8]>
+    <script src="assets/plugins/modernizr.min.js"></script>
+    <![endif]-->
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" data-offset="66">
+    <!--[if lt IE 7]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <script type="text/javascript">
+    when_ready = (function(){
+    	var fs = []
+    	return function(f){
+    		if (f === undefined)
+    			for (var i = 0; i < fs.length; i++)
+    				fs[i]();
+    		else
+    			fs.push(f)
+    	}
+    })();
+    
+    </script>
+    
+    <!-- HERO START -->
+    <header id="home" class="hero parallax-yes">
+        <div class="pattern-overlay"></div>
+        
+        <div id="parallax-1" class="parallax">
+            <div class="bcg skrollable skrollable-between" data-anchor-target="#parallax-1" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-bottom-top="background-position: 50% 100px;">
+                <div class="hero-body">
+                    <div class="hero-text text-center">
+                        <h1 class="small">
+                            Explore Australia and find </span>
+                        </h1>
+
+                        <h1>your Secret Suburb</h1>
+
+                        <div class="page-scroll">
+                            <a href="#profile" class="btn btn-lg btn-custom">
+                                EXPLORE
+                            </a>
+                        </div>
+
+                        <!-- //.page-scroll -->
+                    </div>
+                    <!-- //.hero-text -->
+                </div>
+                <!-- //.hero-body -->
+            </div>
+            <!-- //.bcg -->
+        </div>
+        <!-- //.parallax -->
+    </header>
+    <!-- //HERO END -->
+    
+    
+    <!-- NAVIGATION START -->
+    <nav id="navigation" class="navbar navbar-fixed-top center-menu" role="navigation">
+        <div class="container navbar-container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".berg-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <a class="navbar-brand visible-xs visible-sm" href="#page-top">Secret Suburb</a>
+            </div>
+            <!-- //.navbar-header -->
+            
+            <div class="navbar-collapse collapse berg-collapse">
+                <div class="page-scroll" class="nav navbar-nav">
+                    <a href="#home">
+                        <img src="/static/img/logo.png" style="position: absolute; left: 10px; top: 15px;" alt="logo" height="36" width="36"/>
+                    </a>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    
+                    <li class="page-scroll navbar-tab">
+                        <a href="#profile" id="explore">EXPLORE</a>
+                    </li>
+                    
+                    <li class="page-scroll navbar-tab">
+                        <a href="#services" id="compare">COMPARE</a>
+                    </li>
+                    
+                    <li class="page-scroll" style="position: absolute; right: 10px;">
+                        <a href="#contact">About us</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //.navbar-collapse -->
+        </div>
+        <!-- //.navbar-container -->
+    </nav>
+    <!-- //NAVIGATION END -->
+    
+    {% include explore.html %}
+    {% include compare.html %}
+    
+    <!-- CONTACT SECTION START -->
+    <section id="contact" class="section" style="margin-top:100px">
+        <div class="container section-wrapper">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br/>
+                        <h2 class="section-title uppercase">Big Data Big Dreams</h2>
+
+                        <p class="section-subtitle">
+                            Hackers, friends.
+                        </p>
+
+                        <span class="divider center"></span>
+                    </div>
+                    <!-- //.col-md-12 -->
+                </div>
+                <!-- //.row -->
+                
+                <div class="row">
+                     <div class="col-md-4">
+
+                        <!-- CONTACT DETAILS START -->
+                        <div class="contact-details text-center">
+                            <div class="speech-bubble">
+                                <img src="/static/img/portfolio/angela.jpg" alt="member" height="200" width="200"/>
+                            </div>
+
+                            <br/>
+                            <!-- //.speech-bubble -->
+
+                            <h2 class="uppercase">Angela <strong>Chan</strong></h2>
+
+                            <h4 class="text-grey">Story-Teller</h4>
+
+                            <span class="divider center"></span>
+                        </div>
+                        <!-- //CONTACT DETAILS END -->
+                    </div>
+                    <!-- //.col-md-12 -->
+
+                     <div class="col-md-4">
+
+                        <!-- CONTACT DETAILS START -->
+                        <div class="contact-details text-center">
+                            <div class="speech-bubble">
+                                <img src="/static/img/portfolio/darren.jpg" alt="member" height="200" width="200"/>
+                            </div>
+
+                            <br/>
+                            <!-- //.speech-bubble -->
+
+                            <h2 class="uppercase">Darren <strong>Bui</strong></h2>
+
+                            <h4 class="text-grey">Developer</h4>
+
+                            <span class="divider center"></span>
+                        </div>
+                        <!-- //CONTACT DETAILS END -->
+                    </div>
+                    <!-- //.col-md-12 -->
+
+                     <div class="col-md-4">
+
+                        <!-- CONTACT DETAILS START -->
+                        <div class="contact-details text-center">
+                            <div class="speech-bubble">
+                                <img src="/static/img/portfolio/jacob.jpg" alt="member" height="200" width="200"/>
+                            </div>
+
+                            <br/>
+                            <!-- //.speech-bubble -->
+
+                            <h2 class="uppercase">Jacob <strong>Dunk</strong></h2>
+
+                            <h4 class="text-grey">Developer</h4>
+
+                            <span class="divider center"></span>
+                        </div>
+                        <!-- //CONTACT DETAILS END -->
+                    </div>
+                    <!-- //.col-md-12 -->
+
+                    <div class="col-md-2">
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <!-- CONTACT DETAILS START -->
+                        <div class="contact-details text-center">
+                            <div class="speech-bubble">
+                                <img src="/static/img/portfolio/livia.jpg" alt="member" height="200" width="200"/>
+                            </div>
+
+                            <br/>
+                            <!-- //.speech-bubble -->
+
+                            <h2 class="uppercase">Livia <strong>Lam</strong></h2>
+
+                            <h4 class="text-grey">UX Designer</h4>
+
+                            <span class="divider center"></span>
+                        </div>
+                        <!-- //CONTACT DETAILS END -->
+                    </div>
+                    <!-- //.col-md-12 -->
+
+                     <div class="col-md-4">
+
+                        <!-- CONTACT DETAILS START -->
+                        <div class="contact-details text-center">
+                            <div class="speech-bubble">
+                                <img src="/static/img/portfolio/tom.jpg" alt="member" height="200" width="200"/>
+                            </div>
+
+                            <br/>
+                            <!-- //.speech-bubble -->
+
+                            <h2 class="uppercase">Tom <strong>D'Netto</strong></h2>
+
+                            <h4 class="text-grey">Developer</h4>
+
+                            <span class="divider center"></span>
+                        </div>
+                        <!-- //CONTACT DETAILS END -->
+                    </div>
+                    <!-- //.col-md-12 -->
+                </div>
+                <!-- //.row -->
+            </div>
+            <!-- //.section-content -->
+        </div>
+        <!-- //.container -->
+    </section>
+    <!-- //CONTACT SECTION END -->
+    
+    
+    <!-- FOOTER START -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-scroll">
+                        <a href="#home"><i class="icon-Arrow-Up"></i></a>
+                    </div>
+                    <!-- //.page-scroll -->
+                    
+                    <ul class="list-inline social-icons">
+                        <li>
+                            <p>Created for GovHack 2015</p>
+                            <a href="https://hackerspace.govhack.org/content/secret-suburb" target="_blank"><img src="/static/img/govhack_logo.png"/></a>
+                            <!-- //.item -->
+                        </li>
+                        
+<!-- 
+                        <li>
+                            <div class="item">
+                                <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                            </div>
+                            
+                        </li>
+                        
+                        <li>
+                            <div class="item">
+                                <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                           
+                        </li>
+                        
+                        <li>
+                            <div class="item">
+                                <a href="#" target="_blank"><i class="fa fa-dribbble"></i></a>
+                            </div>
+                            
+                        </li>
+                        
+                        <li>
+                            <div class="item">
+                                <a href="#" target="_blank"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                            
+                        </li>  -->
+
+                    </ul>
+                </div>
+                <!-- //.col-md-12 -->
+            </div>
+            <!-- //.row -->
+        </div>
+        <!-- //.container -->
+    </footer>
+    <!-- //FOOTER END -->
+    
+    <!-- Online js -->
+    <script src="https://www.google.com/jsapi"></script>
+    <!-- Plugins JS -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/jpreloader/js/jpreloader.min.js"></script>
+    <script src="/static/plugins/detectmobilebrowser/detectmobilebrowser.js"></script>
+    <script src="/static/plugins/debouncer/debouncer.js"></script>
+    <script src="/static/plugins/easing/jquery.easing.min.js"></script>
+    <script src="/static/plugins/sticky/jquery.sticky.js"></script>
+    <script src="/static/plugins/inview/jquery.inview.min.js"></script>
+    <script src="/static/plugins/matchHeight/jquery.matchHeight-min.js"></script>
+    <script src="/static/plugins/magnificPopup/jquery.magnific-popup.min.js"></script>
+    <script src="/static/plugins/flexSlider/jquery.flexslider-min.js"></script>
+    <script src="/static/plugins/countTo/jquery.countTo.js"></script>
+    <script src="/static/plugins/skrollr/skrollr.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="/static/plugins/instagram/instafeed.js"></script>
+
+    <!-- Main JS -->
+    <script src="/static/js/main.js"></script>
+    
+    <!-- Parallax JS -->
+    <script src="/static/js/parallax.js"></script>
+    
+    <!-- Animation JS (Optional) -->
+    <script src="/static/js/animation.js"></script>
+
+</body>
+
+</html>

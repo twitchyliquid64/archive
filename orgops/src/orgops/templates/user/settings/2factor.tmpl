@@ -1,0 +1,54 @@
+{{template "header_loggedinuser.tmpl" .}}
+
+
+<div id="body" class="container" data-page="user">
+    <div id="user-setting-nav" class="col-md-3">
+    <h4>Account Settings</h4>
+    <ul class="list-group">
+		<li class="list-group-item"><a href="/user/setting/account">Account</a></li>
+        <li class="list-group-item"><a href="/user/setting">Account Password</a></li>
+        <li class="list-group-item list-group-item-success"><a href="/user/setting/2factor">Two-factor Authentication</a></li>        
+        <li class="list-group-item"><a href="/user/delete">Delete Account</a></li>
+    </ul>
+
+</div>
+    <div id="user-setting-container" class="col-md-9">
+        <div id="setting-pwd">
+            <h4>Two-factor Authentication Setup</h4>
+            <p><i>Two factor authentication is not yet implemented.</i></p>
+            <form class="form-horizontal" id="password-form" method="post" action="/user/setting/enable2factor">
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Setup QR</label>
+                    <div class="col-md-7">
+                        <img src="/img/favicon.png"></img>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Secret</label>
+                    <div class="col-md-7">
+                        45342KJHASD4534543
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">OTP Key<strong class="text-danger">*</strong></label>
+                    <div class="col-md-7">
+                        <input type="password" name="otp" class="form-control" placeholder="Try out 2-factor authentication here to enable it" required="required">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-7">
+                        <button type="submit" class="btn btn-primary">Enable Two Factor Authentication</button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wrapper-push"></div>
+</div>
+</body>
+</html>
