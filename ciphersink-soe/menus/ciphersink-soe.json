@@ -1,0 +1,26 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "ciphersink SOE",
+          "submenu": [
+            {
+              "label": "Toggle dev information",
+              "command": "ciphersink-soe:toggle-dev-information"
+            },
+            {
+              "label": "Deploy",
+              "command": "ciphersink-soe:deploy"
+            },
+            {
+              "label": "Test Options Modal",
+              "command": "ciphersink-soe:test-options"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

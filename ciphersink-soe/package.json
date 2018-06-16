@@ -1,0 +1,25 @@
+{
+  "name": "ciphersink-soe",
+  "main": "./lib/ciphersink-soe",
+  "version": "0.0.1",
+  "description": "Standard operating dev environment for ciphersink.",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": [
+      "ciphersink-soe:toggle-dev-information",
+      "ciphersink-soe:deploy",
+      "ciphersink-soe:test-select-modal"
+    ]
+  },
+  "repository": "https://github.com/atom/ciphersink-soe",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "space-pen": "^5.1.1",
+    "atom-space-pen-views": "^2.0.0",
+    "jquery": "^2.1.4"
+  }
+}

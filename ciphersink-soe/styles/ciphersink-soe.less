@@ -1,0 +1,212 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+atom-panel.modal:after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: hsla(220, 10%, 5%, 0.5);
+  backface-visibility: hidden; // fixes scrollbar on retina screens
+  -webkit-animation: overlay-fade 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+
+.select-option-modal {
+    atom-text-editor[mini]::shadow .text.plain.null-grammar {
+      color: @text-color !important;
+
+    }
+    atom-text-editor[mini]::shadow .placeholder-text{
+      color: @text-color-subtle;
+    }
+    // MINI EDITOR - SMALL
+    // .editor.input.mini
+    atom-text-editor[mini] {
+      font-size: 1.2em;
+      height: 1.8em;
+      vertical-align: middle;
+      margin-top: 0.1em;
+      padding: 0;
+      padding-left: 0.5em;
+      background: @app-background-color;
+      border-color: @base-border-color;
+      overflow: hidden;
+    }
+
+    h2 {
+      color: @text-color-info;
+      text-align: center;
+    }
+
+    .selection-item{
+      display: block;
+      overflow-y: auto;
+      min-height: 15px;
+      max-height: 60px;
+      margin: @component-padding 0 0 0;
+      padding: 6px;
+    }
+
+    .active {
+      background-color: #528bff;
+    }
+}
+
+.progress-modal {
+  atom-text-editor[mini]::shadow .text.plain.null-grammar {
+    color: @text-color !important;
+
+  }
+  atom-text-editor[mini]::shadow .placeholder-text{
+    color: @text-color-subtle;
+    }
+  // MINI EDITOR - SMALL
+  // .editor.input.mini
+  atom-text-editor[mini] {
+    font-size: 1.2em;
+    height: 1.8em;
+    vertical-align: middle;
+    margin-top: 0.1em;
+    padding: 0;
+    padding-left: 0.5em;
+    background: @app-background-color;
+    border-color: @base-border-color;
+    overflow: hidden;
+  }
+
+  .spinner, .icon-spinner {
+    -webkit-animation: rotation .6s infinite linear;
+    -moz-animation: rotation .6s infinite linear;
+    -o-animation: rotation .6s infinite linear;
+    animation: rotation .6s infinite linear;
+    border-left: 6px solid fade(@text-color-info, 15%);
+    border-right: 6px solid fade(@text-color-info, 15%);
+    border-bottom: 6px solid fade(@text-color-info, 15%);
+    border-top: 6px solid @text-color-info;
+    border-radius: 100%;
+  }
+
+  .icon-spinner {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+  }
+
+  .progress-spinner {
+    height: 50px;
+    width: 50px;
+    margin: 1em;
+    position: relative;
+  }
+
+  @-webkit-keyframes rotation {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(359deg);
+    }
+  }
+
+  @-moz-keyframes rotation {
+    from {
+      -moz-transform: rotate(0deg);
+    }
+    to {
+      -moz-transform: rotate(359deg);
+    }
+  }
+
+  @-o-keyframes rotation {
+    from {
+      -o-transform: rotate(0deg);
+    }
+    to {
+      -o-transform: rotate(359deg);
+    }
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+  p {
+    margin: 1.2em;
+  }
+  em {
+    font-size: 0.8em;
+    color: @text-color-warning;
+  }
+  label {
+    color: @text-color-highlight;
+    // align: bottom;
+  }
+
+
+
+  button {
+    width: 8em;
+    text-align: center;
+    margin: 0.5em;
+    background: darken(@button-background-color, 50%);
+    // background: @base-background-color;
+  }
+  button[disabled], button[disabled]:hover {
+    background-color: @button-background-color;
+  }
+
+  .btn-get {
+    height: 100%;
+    width: auto;
+    margin-top: .1em;
+    margin-right: 0;
+    // margin: 0;
+  }
+
+
+
+  .input {
+    // border-color: lighten(@base-border-color, 5%);
+
+  }
+
+
+
+  .align-right {
+    text-align: right;
+  }
+  .align-left {
+    text-align: left;
+  }
+  .full-width {
+    display: inline-flex;
+    width: 100%;
+  }
+  .quarter-width {
+    width: 25%;
+  }
+  .half-width {
+    width: 50%;
+  }
+  .three-quarter-width {
+    width: 75%;
+  }
+
+
+  h2 {
+    color: @text-color-info;
+    text-align: center;
+  }
+}
