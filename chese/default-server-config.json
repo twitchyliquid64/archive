@@ -1,0 +1,9 @@
+{
+  "listener": ":8425",
+  "tls": {
+    "server-cert-path": "serv-cert.pem",
+    "server-key-path": "serv-key.pem",
+    "ca-cert-path": "ca-cert.pem"
+  },
+  "resource-path": "~/projects/chese/src/github.com/twitchyliquid64/chese/resources"
+}

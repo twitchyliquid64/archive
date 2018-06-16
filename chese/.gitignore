@@ -1,0 +1,16 @@
+/chese-client
+/chese-server
+/chese-setup
+
+/resources/theme/Cached Theme.pak
+/ca-cert.pem
+/ca-key.pem
+/serv-cert.pem
+/serv-key.pem
+/client-cert.pem
+/client-key.pem
+
+/bin/*
+/pkg/*
+
+*.pyc

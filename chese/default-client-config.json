@@ -1,0 +1,19 @@
+{
+  "chrome": {
+    "bin-path": "/usr/bin/google-chrome-stable",
+    "data-directory": "/tmp/chese-test"
+  },
+  "keyhole": {
+    "listener": ":8427",
+    "forwarders": [
+      {
+        "type": "tls-pinned",
+        "address": "localhost:8425",
+        "ca-cert-path": "ca-cert.pem",
+        "client-cert-path": "client-cert.pem",
+        "client-key-path": "client-key.pem"
+      }
+    ]
+  },
+  "resource-path": "~/projects/chese/src/github.com/twitchyliquid64/chese/resources"
+}

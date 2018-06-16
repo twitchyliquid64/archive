@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=VERSION_HERE
+Name=Chese
+GenericName=Chese
+Exec=EXEC_PATH_HERE
+Terminal=false
+Icon=/usr/share/chese-client/resources/keyhole/static/cheese_pizza_icon_by_typhloser.gif
+Type=Application
+Categories=Application;Network;Security;
+Comment=Chese - Chrome By Proxy

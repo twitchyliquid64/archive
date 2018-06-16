@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -f /etc/chese/ca-cert.pem ]; then
+  echo "CA Cert already exists, skipping default setup of CA + Server certificates"
+else
+  echo "Creating CA + Server certificates"
+  chese-setup \
+    --ca-cert /etc/chese/ca-cert.pem\
+    --ca-key /etc/chese/ca-key.pem\
+    --serv-cert /etc/chese/serv-cert.pem\
+    --serv-key /etc/chese/serv-key.pem\
+     mint-server
+ fi
