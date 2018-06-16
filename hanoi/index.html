@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>Hanoi</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="css/material-icons.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/general.css">
+
+    <!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/angular-materialize.min.js"></script>
+
+    <!-- application initialization -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/dataService.js"></script>
+    <script type="text/javascript" src="js/sensorController.js"></script>
+    <script type="text/javascript" src="js/homeController.js"></script>
+    <script type="text/javascript" src="js/ruleController.js"></script>
+    <script type="text/javascript" src="js/pageController.js"></script>
+
+</head>
+<body ng-app="hanoi" ng-controller="BodyController">
+
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><i class="material-icons">settings_input_antenna</i> Hanoi</a>
+      <ul class="right hide-on-med-and-down">
+        <li ng-class="{active: page == 'home'}"><a href="#"    ng-click="changePage('home')">Home</a></li>
+        <li ng-class="{active: page == 'sensors'}"><a href="#" ng-click="changePage('sensors')">Sensors</a></li>
+        <li ng-class="{active: page == 'rules'}"><a href="#"   ng-click="changePage('rules')">Rules</a></li>
+        <li ng-class="{active: page == 'pagers'}"><a href="#"  ng-click="changePage('pagers')">Pagers</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Sensors</a></li>
+        <li><a href="#">Rules</a></li>
+        <li><a href="#">Pagers</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile"  data-sidenav="left" data-menuwidth="500" data-closeonclick="false" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+    <div class="container">
+      <div ng-show="page=='home'">
+        <div class="section" ng-show="dataService.loaded" ng-controller="homeController">
+          <ul class="collection">
+            <li class="collection-item avatar" ng-repeat="(group, rule) in dataService.rules">
+              <div class="anim-circle center-animated-circle" ng-class="groupCircleIcon(group)"></div>
+              <span class="title">{{group}}</span>
+              <p>{{rule.description}}</p>
+              <div class="chip" ng-class="ruleStatusClass(rule)" ng-repeat="rule in dataService.rules[group]">
+                <i class="material-icons vicon">{{ruleStatusIcon(rule)}}</i> {{rule.name}}
+              </div>
+            </li>
+          </ul>
+      </div>
+    </div>
+
+
+    <div ng-show="page=='sensors'">
+      <br>
+      <ul class="collapsible popout" data-collapsible="accordion" watch ng-controller="sensorsController">
+          <li  ng-repeat="(group, sensors) in dataService.sensors">
+            <div class="collapsible-header"><i class="material-icons vicon">language</i> {{group}}</div>
+            <div class="collapsible-body">
+              <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="sensor in sensors">
+                  <i class="material-icons circle" ng-class="{green: sensor.ok, red: !sensor.ok}">{{sensorIcon(sensor)}}</i>
+                  <span class="title">{{typeToName(sensor)}}</span>
+                  <br>
+                  <span>{{sensorDetails(sensor)}}</span>
+                  <a href="chart?name={{group}}.{{sensor.name}}" class="secondary-content" tooltipped data-position="top" data-delay="50" data-tooltip="name={{sensor.name}} interval={{sensor.interval}}"><i class="material-icons">clear_all</i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+      </ul>
+    </div>
+
+
+    <div ng-show="page=='rules'">
+      <br>
+      <ul class="collapsible popout" data-collapsible="accordion" watch ng-controller="ruleController">
+          <li  ng-repeat="(group, rules) in dataService.rules">
+            <div class="collapsible-header"><i class="material-icons vicon">language</i> {{group}}</div>
+            <div class="collapsible-body">
+              <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="rule in rules">
+                  <i class="material-icons circle" ng-class="{green: rule.ok, red: !rule.ok}">{{ruleIcon(rule)}}</i>
+                  <span class="title">{{typeToName(rule)}}
+                    <div class="chip" ng-if="rule.noop">
+                      <i class="material-icons vicon">pause</i> Not ready
+                    </div>
+                  </span>
+                  <br>
+                  <span>{{ruleDetails(rule)}}</span>
+                  <a href="#" class="secondary-content" tooltipped data-position="top" data-delay="50" data-tooltip="{{tooltip(rule)}}"><i class="material-icons">info_outline</i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+      </ul>
+    </div>
+
+    <div ng-show="page=='pagers'">
+      <br>
+      <ul class="collapsible popout" data-collapsible="accordion" watch ng-controller="pageController">
+          <li  ng-repeat="(group, rules) in dataService.paging_rules">
+            <div class="collapsible-header"><i class="material-icons vicon">language</i> {{group}}</div>
+            <div class="collapsible-body">
+              <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="rule in rules">
+                  <i class="material-icons circle" ng-class="{green: rule.ok, red: !rule.ok}">{{pageIcon(rule)}}</i>
+                  <span class="title">{{typeToName(rule)}}</span>
+                  <br>
+                  <span>{{pageDetails(rule)}}</span>
+                  <br>
+                  <div class="chip" ng-class="ruleStatusClass(ok)" ng-repeat="(ruleName, ok) in rule.ruleState">
+                    <i class="material-icons vicon">{{ruleStatusIcon(ok)}}</i> {{ruleName}}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+</body>
+</html>

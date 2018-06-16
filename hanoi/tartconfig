@@ -1,0 +1,3 @@
+edit-tart --name Hanoi --log-stdout yes
+extension --extension DNSServ --operation set-record --type A --domain $domain --address $address --ttl 100
+extension --extension HTTPProxy --operation set-domain-proxy --domain $domain --targetport $port --scheme http --targethost localhost

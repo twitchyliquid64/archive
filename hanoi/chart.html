@@ -1,0 +1,105 @@
+
+<html>
+  <head>
+    <title>Hanoi</title>
+    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="js/chart.bundle.min.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
+  </head>
+  <body>
+
+    <div style="width: 800;height: 400;">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>`
+
+    <script>
+      function getParams ()
+      {
+          var result = {};
+          var tmp = [];
+
+          location.search
+              .substr (1)
+              .split ("&")
+              .forEach (function (item)
+              {
+                  tmp = item.split ("=");
+                  result [tmp[0]] = decodeURIComponent (tmp[1]);
+              });
+
+          return result;
+      }
+
+      var timeFormat = 'DD HH:mm';
+      var data = {
+          labels: [],
+          datasets: [
+              {
+                  label: getParams()["name"],
+                  fill: false,
+                  lineTension: 0.1,
+                  backgroundColor: "rgba(75,192,192,0.4)",
+                  borderColor: "rgba(75,192,192,1)",
+                  borderCapStyle: 'butt',
+                  borderDash: [],
+                  borderDashOffset: 0.0,
+                  borderJoinStyle: 'miter',
+                  pointBorderColor: "rgba(75,192,192,1)",
+                  pointBackgroundColor: "#fff",
+                  pointBorderWidth: 1,
+                  pointHoverRadius: 5,
+                  pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                  pointHoverBorderColor: "rgba(220,220,220,1)",
+                  pointHoverBorderWidth: 2,
+                  pointRadius: 1,
+                  pointHitRadius: 10,
+                  data: [],
+                  spanGaps: false,
+              }
+          ],
+      };
+
+
+
+      $.ajax({
+        url: "/sensor_history?name="+getParams()["name"]
+      })
+      .done(function( d ) {
+        console.log(d);
+        var remoteData = JSON.parse(d);
+        for(var i = 0; i < remoteData.length; i++){
+          data.labels[i] = moment(remoteData[i][2]*1000).toDate();
+          data.datasets[0].data[i] = JSON.parse(remoteData[i][1])["val"];
+        }
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                  xAxes: [{
+                      type: "time",
+                      time: {
+                        format: timeFormat,
+                        // round: 'day'
+                        tooltipFormat: 'll HH:mm'
+                      },
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Sensor recorded at'
+                      }
+                    }, ],
+                    yAxes: [{
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                      }
+                    }]
+                }
+            }
+        });
+      });
+    </script>
+  </body>
+</html>
