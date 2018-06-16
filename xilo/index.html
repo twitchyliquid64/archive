@@ -1,0 +1,80 @@
+<html>
+  <head>
+      <title>Xilo</title>
+      <link rel="stylesheet" href="static/css/general.css">
+
+      <!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+      <script type="text/javascript" src="static/js/libs/jquery-3.0.0.min.js"></script>
+      <script type="text/javascript" src="static/js/libs/angular.min.js"></script>
+      <script type="text/javascript" src="static/js/libs/paper.js"></script>
+
+      <script type="text/javascript" src="static/js/xilo.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/valve.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/store.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/door.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/mcu.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/router.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/sensor.js"></script>
+      <script type="text/javascript" src="static/js/xilo-objs/nozzle.js"></script>
+
+  </head>
+  <body>
+    <h1>Xilo test</h1>
+
+    <canvas id="displayCanvas" style="width: 100%; height: 580px;" tabindex='1'></canvas>
+
+    <script>
+      var canvas = document.getElementById('displayCanvas');
+      canvas.style.width ='100%';
+      paperSurface = new paper.PaperScope();
+      paperSurface.setup(canvas);
+      paperSurface.settings.insertItems = false;
+      var scene = new Xilo(canvas);
+      xiloSetStrokeColor('#AAAAFF');
+      xiloSetFillColor('black');
+      xiloSetKindStrokeColor('Link', 'white');
+      xiloSetEntityStrokeColor('dump valve', 'red');
+
+      var sourceTank = new Store("water", {pos: {x: 200, y:200}});
+      var dumpValve = new Valve("dump valve", {pos: {x: 350, y: 300}, isVertical: true});
+      var washingMachineValve = new Valve("washing machine valve", {pos: {x: 300, y: 300, isVertical: true}});
+
+      var norman = new MCU('ACU', {pos: {x: 500, y: 200, size: 30}});
+      var frontDoor = new Door("door", {pos: {x: 700, y: 200}});
+      var router = new Router("router", {pos: {x: 500, y:65}});
+      var insideTempSensor = new Sensor("Inside temperature", {pos: {x: 700, y: 65}})
+      var nozzle = new Nozzle('Dump', {pos: {x: 350, y: 360}, isMetered: false, flowRate: 2, size: 30});
+
+      scene.add(dumpValve);
+      scene.add(sourceTank);
+      scene.add(washingMachineValve);
+      scene.add(frontDoor);
+      scene.add(norman);
+      scene.add(router);
+      scene.add(insideTempSensor);
+      scene.add(nozzle);
+
+      var routerLabel = new BoundLabel(router, {offset: {x: -70, y: 8}, content: "10.0.0.1"});
+      scene.add(routerLabel);
+
+      // do links after the scene is created
+      var dumpLink = new Link(
+        sourceTank.paintRoot.bounds.bottomCenter,
+        dumpValve.paintRoot.bounds.topCenter,
+        sourceTank, dumpValve,
+        'HORI-VERTICAL'
+      ).draw(scene.paperSurface);
+      var washingMachineLink = new Link(sourceTank.bounds().bottomCenter, washingMachineValve.bounds().topCenter, sourceTank, washingMachineValve, 'HORI-VERTICAL').draw(scene.paperSurface);
+      var doorLink = new Link(norman.bounds().rightCenter, frontDoor.bounds().leftCenter, norman, frontDoor).draw(scene.paperSurface);
+      var routerLink = new Link(norman.bounds().topCenter, router.bounds().bottomCenter, router, norman, 'DIRECT').draw(scene.paperSurface);
+      var tempLink = new Link(router.bounds().rightCenter, insideTempSensor.bounds().leftCenter, router, insideTempSensor, 'DIRECT').draw(scene.paperSurface);
+      var dumpLink = new Link(dumpValve.bounds().bottomCenter, nozzle.bounds().topCenter, dumpValve, nozzle, 'DIRECT').draw(scene.paperSurface);
+
+      setTimeout(function(){frontDoor.setState(true);}, 1000);
+      setTimeout(function(){frontDoor.setState(false);}, 3000);
+      setTimeout(function(){dumpValve.setState(false);}, 1000);
+      setTimeout(function(){dumpValve.setState(true);}, 4000);
+    </script>
+
+  </body>
+</html>
